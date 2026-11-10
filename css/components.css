@@ -89,7 +89,7 @@
 
 /* ── Buttons ───────────────────────────────────────────────────────────── */
 /* The default button is bracketed amber text (base.css). One .solid per view. */
-.solid { padding: 0 2ch; background: var(--amber); color: var(--bg); font-weight: 700; }
+.solid { padding: 0 1ch; background: var(--amber); color: var(--bg); font-weight: 700; }
 .solid::before, .solid::after { content: none; }
 .solid:hover:not(:disabled) { background: var(--strong); text-decoration: none; }
 .solid:disabled { background: var(--line); color: var(--faint); }
