@@ -1,0 +1,23 @@
+{
+  "name": "@crabphp/design",
+  "version": "0.1.0",
+  "description": "Design tokens, components and charts for CrabPHP applications.",
+  "license": "MIT",
+  "type": "module",
+  "files": ["css", "fonts", "js", "design.md"],
+  "exports": {
+    ".": "./css/crab.css",
+    "./tokens.css": "./css/tokens.css",
+    "./base.css": "./css/base.css",
+    "./components.css": "./css/components.css",
+    "./charts.css": "./css/charts.css",
+    "./charts.js": "./js/charts.js"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

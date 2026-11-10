@@ -1,0 +1,287 @@
+/* Crab components. Requires tokens.css and base.css.
+   Each block is independent: copy the ones an app needs, or import the file. */
+
+/* ── Utilities ─────────────────────────────────────────────────────────── */
+.muted, .lede { color: var(--muted); }
+.faint { color: var(--faint); }
+.strong { color: var(--strong); }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nowrap { white-space: nowrap; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.spacer { margin-left: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.eyebrow { margin-bottom: 0; color: var(--faint); }
+.cursor { color: var(--amber); }
+.skip-link { position: absolute; left: var(--pad-x); top: -80px; z-index: var(--z-toast); padding: 0 1ch; background: var(--amber); color: var(--bg); }
+.skip-link:focus { top: 8px; }
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+/* One reading column, or a wider one for application content. */
+.page { max-width: var(--measure); margin-inline: auto; }
+.page.wide { max-width: var(--wide); }
+
+/* Navigation column plus content. Add .wide for tables, charts and panes. */
+.shell {
+  --content: var(--measure);
+  display: grid;
+  grid-template-columns: var(--nav) minmax(0, 1fr);
+  gap: 0 var(--gutter);
+  max-width: calc(var(--nav) + var(--gutter) + var(--content));
+  margin-inline: auto;
+}
+.shell.wide { --content: var(--wide); }
+.shell > .site-header, .shell > .site-footer { grid-column: 1 / -1; }
+.shell-main { min-width: 0; }
+.shell-nav { position: sticky; top: var(--pad-y); align-self: start; max-height: calc(100vh - var(--pad-y) * 2); margin: 0; overflow-y: auto; scrollbar-width: thin; }
+.shell-nav > summary { display: none; }
+
+/* List beside detail: a mailbox, a log and its entry. */
+.split { display: grid; grid-template-columns: minmax(0, var(--split, 44ch)) minmax(0, 1fr); gap: 0 var(--gap); }
+.split > :last-child { min-width: 0; padding-left: var(--gap); border-left: 1px solid var(--line); }
+
+/* Equal columns that wrap when they run out of room. */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--col, 30ch), 100%), 1fr)); gap: 0 var(--gutter); }
+.cols > * { min-width: 0; }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--half) var(--gap); margin-bottom: var(--lh); }
+.toolbar > * { margin-block: 0; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--half) var(--gap); margin-top: var(--lh); }
+.section { margin-top: calc(var(--lh) * 3); }
+
+.site-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 3ch; margin-bottom: calc(var(--lh) * 3); }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 0 3ch; }
+.wordmark { color: var(--strong); font-weight: 700; white-space: nowrap; }
+.wordmark:hover { text-decoration: none; }
+.wordmark span { color: var(--amber); }
+.wordmark small { margin-left: 1ch; font-weight: 400; }
+.site-footer { margin-top: calc(var(--lh) * 4); color: var(--faint); }
+
+/* ── Navigation ────────────────────────────────────────────────────────── */
+.nav-list p { margin: 0; color: var(--faint); }
+.nav-list ul { list-style: none; padding: 0; }
+.nav-list a { display: flex; justify-content: space-between; gap: 1ch; color: var(--muted); }
+.nav-list a:hover, .nav-list a[aria-current] { color: var(--amber); text-decoration: none; }
+.nav-list a[aria-current] > :first-child::before, .nav-list a[aria-current]:not(:has(*))::before { content: "> "; content: "> " / ""; }
+.count { color: var(--faint); font-variant-numeric: tabular-nums; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 0 3ch; margin-bottom: var(--lh); border-bottom: 1px solid var(--line); }
+.tabs > * { min-height: 0; padding: 0 0 var(--half); color: var(--muted); }
+.tabs > *::before, .tabs > *::after { content: none; }
+.tabs > *:hover:not(:disabled) { color: var(--amber); text-decoration: none; }
+.tabs > [aria-selected="true"], .tabs > [aria-current] { color: var(--amber); box-shadow: 0 1px 0 var(--amber); }
+
+/* A set of choices where one is on: date presets, view switches. */
+.segmented { display: inline-flex; flex-wrap: wrap; gap: 0 1ch; }
+.segmented > button { color: var(--muted); }
+.segmented > [aria-pressed="true"] { color: var(--amber); font-weight: 700; }
+
+.breadcrumb ol { display: flex; flex-wrap: wrap; margin: 0 0 var(--lh); padding: 0; list-style: none; color: var(--faint); }
+.breadcrumb li + li::before { content: "/"; content: "/" / ""; margin-inline: 1ch; }
+.breadcrumb [aria-current] { color: var(--muted); }
+
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 3ch; margin-top: calc(var(--lh) * 3); }
+.pager span { color: var(--faint); }
+.pagination { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 2ch; margin-bottom: var(--lh); font-variant-numeric: tabular-nums; }
+.pagination span, .pagination [aria-disabled="true"] { color: var(--faint); }
+.pagination [aria-current] { color: var(--strong); font-weight: 700; }
+.pagination [aria-current]::before { content: "["; content: "[" / ""; }
+.pagination [aria-current]::after { content: "]"; content: "]" / ""; }
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+/* The default button is bracketed amber text (base.css). One .solid per view. */
+.solid { padding: 0 2ch; background: var(--amber); color: var(--bg); font-weight: 700; }
+.solid::before, .solid::after { content: none; }
+.solid:hover:not(:disabled) { background: var(--strong); text-decoration: none; }
+.solid:disabled { background: var(--line); color: var(--faint); }
+.quiet { color: var(--muted); }
+.quiet:hover:not(:disabled) { color: var(--strong); }
+.danger { color: var(--danger); }
+.solid.danger { background: var(--danger); color: var(--bg); }
+.block { display: flex; width: 100%; }
+
+/* ── Forms ─────────────────────────────────────────────────────────────── */
+/* Label, control, optional help line. Three lines tall without help. */
+.field { margin-bottom: var(--lh); }
+.field > label { margin-bottom: var(--half); }
+.field > small, .check small { display: block; }
+.field > small { margin-top: var(--half); }
+.hint { margin-left: 1ch; color: var(--faint); font-weight: 400; }
+.error { color: var(--danger); }
+.check { display: flex; gap: 1ch; width: fit-content; color: var(--text); cursor: pointer; }
+.check:has(:disabled) { color: var(--faint); cursor: not-allowed; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(24ch, 100%), 1fr)); gap: 0 var(--gap); }
+
+/* A control with text or a button attached to it. */
+.input-group { display: flex; }
+.input-group > * + * { margin-left: -1px; }
+.input-group > :focus-visible { position: relative; }
+.addon, .input-group > button { display: flex; flex: none; align-items: center; padding: 0 1ch; border: 1px solid var(--line-strong); white-space: nowrap; }
+.addon { color: var(--faint); }
+.input-group > button::before, .input-group > button::after { content: none; }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--half) 1ch; margin: 0 0 var(--lh); padding: 0; list-style: none; }
+.chip { display: inline-flex; gap: 1ch; padding: 0 1ch; border: 1px solid var(--line-strong); color: var(--text); white-space: nowrap; }
+.chip button { min-height: 0; color: var(--faint); }
+.chip button::before, .chip button::after { content: none; }
+.chip button:hover { color: var(--danger); text-decoration: none; }
+
+/* ── Data ──────────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; margin-bottom: var(--lh); scrollbar-width: thin; }
+.table-wrap table { margin: 0; }
+table.plain th, table.plain td { padding-left: 0; border-width: 0 0 1px; }
+table.plain :is(th, td):last-child { padding-right: 0; }
+table.compact th, table.compact td { padding-block: calc(var(--lh) / 4); }
+table.fixed { table-layout: fixed; }
+table.hover tbody tr:hover { background: var(--surface-hover); }
+tr[aria-selected="true"] { background: var(--surface); }
+tr[aria-selected="true"] > :first-child { box-shadow: inset 2px 0 var(--amber); }
+tr.accent > * { color: var(--amber); }
+td.num, th.num { text-align: right; }
+td .check { display: inline-flex; }
+
+/* Sortable column: <th aria-sort="ascending"><button class="sort">Name</button></th> */
+.sort { min-height: 0; color: inherit; }
+.sort::before { content: none; }
+.sort::after { content: " ↕"; content: " ↕" / ""; color: var(--line-strong); white-space: pre; }
+[aria-sort="ascending"] .sort, [aria-sort="descending"] .sort { color: var(--strong); }
+[aria-sort="ascending"] .sort::after { content: " ↑"; content: " ↑" / ""; color: var(--amber); }
+[aria-sort="descending"] .sort::after { content: " ↓"; content: " ↓" / ""; color: var(--amber); }
+
+/* Term and description side by side: settings, envelopes, commands. */
+.defs { display: grid; grid-template-columns: var(--term, 16ch) minmax(0, 1fr); gap: 0 2ch; }
+.defs dt { color: var(--faint); }
+.defs dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Headline numbers. One size like everything else; weight does the work. */
+.stats { display: flex; flex-wrap: wrap; gap: var(--lh) var(--gutter); }
+.stat { min-width: 14ch; padding-left: 2ch; border-left: 1px solid var(--line); }
+.stat dt { color: var(--faint); }
+.stat dd { margin: 0; color: var(--strong); font-weight: 700; }
+.delta { color: var(--muted); font-variant-numeric: tabular-nums; }
+.delta::before { content: "= "; color: var(--faint); }
+.delta.up::before { content: "▲ "; color: var(--ok); }
+.delta.down::before { content: "▼ "; color: var(--danger); }
+.delta.up.invert::before { color: var(--danger); }
+.delta.down.invert::before { color: var(--ok); }
+
+/* State as a word with a coloured mark in front of it. */
+.badge { color: var(--text); white-space: nowrap; }
+.badge::before { content: "● "; content: "● " / ""; color: var(--faint); }
+.badge.ok::before { color: var(--ok); }
+.badge.warn::before { color: var(--warn); }
+.badge.danger::before { color: var(--danger); }
+.badge.info::before { color: var(--info); }
+.badge.accent::before { color: var(--amber); }
+
+.avatar { display: inline-grid; flex: none; place-items: center; width: 4ch; height: var(--lh); background: var(--surface-hover); color: var(--strong); font-weight: 700; text-transform: uppercase; }
+
+/* Inline bar for rankings and quotas: <span class="bar" style="--v: 62%"></span> */
+.bar { display: block; height: calc(var(--lh) / 3); background: linear-gradient(to right, var(--bar, var(--chart-1)) var(--v, 0%), var(--line) 0); }
+td > .bar { margin-top: calc(var(--lh) / 3); }
+
+/* Selectable list: messages, events, jobs. */
+.rows { margin: 0 0 var(--lh); padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 2ch; padding: var(--half) 2ch; border-bottom: 1px solid var(--line); color: var(--text); }
+a.row:hover, button.row:hover { background: var(--surface-hover); text-decoration: none; }
+.row[aria-current], .row[aria-selected="true"] { background: var(--surface); box-shadow: inset 2px 0 var(--amber); }
+.row-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-meta { color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.row-text { grid-column: 1 / -1; overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+.row.unread .row-title { color: var(--strong); font-weight: 700; }
+.row.unread .row-title::before { content: "* "; content: "* " / "Unread: "; color: var(--amber); }
+
+.empty { margin-bottom: var(--lh); padding: var(--lh) 2ch; background: var(--surface); color: var(--muted); }
+.empty > :last-child { margin-bottom: 0; }
+
+/* ── Feedback ──────────────────────────────────────────────────────────── */
+/* Start the text with the word that says what it is: "Error:", "Saved." */
+.note { margin-bottom: var(--lh); padding-left: 2ch; border-left: 1px solid var(--amber); color: var(--muted); overflow-wrap: anywhere; }
+.note > :last-child { margin-bottom: 0; }
+.note.ok { border-color: var(--ok); }
+.note.warn { border-color: var(--warn); }
+.note.danger { border-color: var(--danger); }
+.note.info { border-color: var(--info); }
+
+.toasts { position: fixed; right: var(--pad-x); bottom: var(--pad-y); z-index: var(--z-toast); display: grid; gap: var(--half); width: min(48ch, calc(100% - var(--pad-x) * 2)); }
+.toast { display: flex; justify-content: space-between; gap: 2ch; padding: var(--half) 2ch; border: 1px solid var(--line-strong); border-left-color: var(--amber); background: var(--bg); color: var(--text); }
+.toast.ok { border-left-color: var(--ok); }
+.toast.warn { border-left-color: var(--warn); }
+.toast.danger { border-left-color: var(--danger); }
+.toast button { min-height: 0; }
+
+/* <span class="spinner" role="status" aria-label="Loading"></span> */
+.spinner { display: inline-block; width: 1ch; height: var(--lh); overflow: hidden; color: var(--amber); white-space: pre; vertical-align: top; }
+.spinner::before { content: "~"; display: inline-block; }
+
+/* Wrap the target: <span data-tip="Copy to clipboard"><button>Copy</button></span> */
+[data-tip] { position: relative; display: inline-flex; }
+[data-tip]:hover::after, [data-tip]:focus-within::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 0;
+  z-index: var(--z-menu);
+  padding: 0 1ch;
+  background: var(--strong);
+  color: var(--bg);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Menu: <button popovertarget="m">Actions</button> <div id="m" popover class="menu">…</div> */
+.menu { margin: 0; padding: var(--half) 0; border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); min-width: 22ch; }
+.menu[popover] { inset: auto; position-area: bottom span-right; position-try-fallbacks: flip-block, flip-inline; }
+.menu > a, .menu > button { display: flex; justify-content: flex-start; width: 100%; min-height: var(--control); padding: 0 2ch; color: var(--text); }
+.menu > a { align-items: center; }
+.menu > button::before, .menu > button::after { content: none; }
+.menu > a:hover, .menu > button:hover:not(:disabled) { background: var(--surface-hover); color: var(--strong); text-decoration: none; }
+.menu > :focus-visible { outline-offset: -2px; }
+.menu > .danger { color: var(--danger); }
+.menu > p { margin: 0; padding: 0 2ch; color: var(--faint); }
+.menu > hr { margin: var(--half) 0; border-top: 1px solid var(--line); }
+.menu > hr::before { content: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cursor { animation: crab-blink 1s steps(1) infinite; }
+  .spinner::before { content: "|/-\\"; animation: crab-spin .6s steps(4) infinite; }
+}
+@keyframes crab-blink { 50% { opacity: 0; } }
+@keyframes crab-spin { to { transform: translateX(-4ch); } }
+
+/* ── Small screens ─────────────────────────────────────────────────────── */
+/* The navigation column becomes a bar at the top that opens into a menu.
+   Markup: <details class="shell-nav" open><summary>Menu</summary><nav class="nav-list">…</nav></details> */
+@media (max-width: 860px) {
+  html { scroll-padding-top: calc(var(--lh) * 3); }
+  .shell { display: block; max-width: var(--content); }
+  .shell-nav {
+    top: 0; z-index: var(--z-sticky);
+    max-height: none; overflow: visible;
+    margin: 0 calc(var(--pad-x) * -1) var(--lh);
+    padding: 0 var(--pad-x);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .shell-nav > summary { display: flex; margin: 0; }
+  .shell-nav > nav {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(18ch, 1fr)); gap: 0 4ch; align-items: start;
+    max-height: 70dvh; overflow-y: auto; overscroll-behavior: contain;
+    padding-bottom: var(--lh);
+  }
+  .shell-nav ul { margin-bottom: var(--half); }
+  .nav-list a, .site-header a, .pager a, .pagination a { padding: 4px 0; }
+  .split { display: block; }
+  .split > :last-child { padding-left: 0; border-left: 0; }
+  .site-header { margin-bottom: calc(var(--lh) * 2); }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .tabs > * { flex: none; padding-block: var(--half); }
+}
+@media (max-width: 560px) {
+  .defs { grid-template-columns: 1fr; }
+  .defs dd { margin-bottom: var(--half); }
+  th, td { padding-inline: 1ch; }
+  .actions { display: grid; }
+  .actions > .solid { width: 100%; }
+  .pager { flex-direction: column; gap: var(--half); }
+  .toasts { right: var(--pad-x); left: var(--pad-x); width: auto; }
+}

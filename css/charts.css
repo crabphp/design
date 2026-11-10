@@ -1,0 +1,99 @@
+/* Crab charts. Requires tokens.css and base.css.
+   These classes style any SVG; js/charts.js draws charts that use them.
+
+   <figure class="chart">
+     <figcaption>Visitors <small>last 30 days</small></figcaption>
+     <ul class="legend">…</ul>            two or more series
+     <div class="chart-plot"><svg>…</svg></div>
+     <details class="chart-data">…</details>   the same numbers as a table
+   </figure> */
+
+/* Series colour: fixed order, set once per series. */
+.c1 { --c: var(--chart-1); }
+.c2 { --c: var(--chart-2); }
+.c3 { --c: var(--chart-3); }
+.c4 { --c: var(--chart-4); }
+.c5 { --c: var(--chart-5); }
+.c6 { --c: var(--chart-6); }
+.c7 { --c: var(--chart-7); }
+.c-other { --c: var(--chart-other); }
+
+.chart { min-width: 0; }
+.chart figcaption { margin-bottom: var(--half); color: var(--strong); }
+.chart figcaption small { margin-left: 1ch; }
+.chart-plot { position: relative; margin-bottom: var(--half); }
+.chart-plot svg { display: block; max-width: none; overflow: visible; }
+/* A plot that keeps its marks readable and scrolls sideways on a narrow screen. */
+.chart-plot.scrolls { overflow-x: auto; scrollbar-width: thin; }
+.chart-plot svg:focus-visible { outline-offset: 2px; }
+.chart text { fill: var(--faint); font: var(--size) var(--font); font-variant-numeric: tabular-nums; }
+.chart text.label { fill: var(--muted); }
+
+/* Marks */
+.chart .grid { stroke: var(--chart-grid); stroke-width: 1; shape-rendering: crispEdges; }
+.chart .axis { stroke: var(--chart-axis); stroke-width: 1; shape-rendering: crispEdges; }
+.chart .line { fill: none; stroke: var(--c); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .area { fill: var(--c); fill-opacity: .1; stroke: none; }
+.chart .dot { fill: var(--c); stroke: var(--bg); stroke-width: 2; }
+.chart .col { fill: var(--c); shape-rendering: crispEdges; }
+.chart .band { fill: transparent; }
+.chart .band.is-active { fill: var(--surface-hover); }
+.chart .cross { stroke: var(--line-strong); stroke-width: 1; shape-rendering: crispEdges; }
+.chart [hidden] { display: none; }
+
+/* Heat cells: zero, then five steps of one hue. */
+.chart .cell { stroke: var(--bg); stroke-width: 2; }
+.chart .cell.is-active { stroke: var(--strong); stroke-width: 1; }
+.h0 { fill: var(--surface); background: var(--surface); }
+.h1 { fill: var(--seq-1); background: var(--seq-1); }
+.h2 { fill: var(--seq-2); background: var(--seq-2); }
+.h3 { fill: var(--seq-3); background: var(--seq-3); }
+.h4 { fill: var(--seq-4); background: var(--seq-4); }
+.h5 { fill: var(--seq-5); background: var(--seq-5); }
+
+/* Legend. The key mirrors the mark; names stay in text colour. */
+.legend { display: flex; flex-wrap: wrap; gap: 0 3ch; margin: 0 0 var(--half); padding: 0; list-style: none; color: var(--muted); }
+.legend li { display: flex; align-items: center; gap: 1ch; white-space: nowrap; }
+.legend strong { font-weight: 400; font-variant-numeric: tabular-nums; }
+.key { display: inline-block; flex: none; width: 1ch; height: 1ch; background: var(--c); }
+.key.stroke { width: 2ch; height: 2px; }
+.scale { display: flex; align-items: center; gap: 2px; color: var(--faint); }
+.scale i { width: 1.5ch; height: 1.5ch; }
+.scale i:first-of-type { margin-left: 1ch; }
+.scale i:last-of-type { margin-right: 1ch; }
+
+/* Tooltip: value first, name second. It repeats what the table says. */
+.chart-tip {
+  position: absolute;
+  top: 0;
+  z-index: var(--z-menu);
+  min-width: 16ch;
+  padding: var(--half) 1ch;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.chart-tip p { margin: 0; color: var(--faint); }
+.chart-tip div { display: flex; align-items: center; gap: 1ch; }
+.chart-tip strong { margin-left: auto; padding-left: 2ch; font-variant-numeric: tabular-nums; }
+
+.chart-data { margin: 0; }
+.chart-data > summary { color: var(--faint); }
+.chart-data table { margin: 0; }
+.chart-data .table-wrap { max-height: calc(var(--lh) * 14); overflow-y: auto; }
+
+/* Sparkline: a trend beside a number, never on its own. */
+.spark { display: inline-block; width: 12ch; height: var(--lh); vertical-align: top; overflow: visible; }
+.spark .line { fill: none; stroke: var(--chart-other); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.spark .dot { fill: var(--amber); }
+
+/* One whole split into parts. Names and shares go in the legend below it. */
+.segments { display: flex; gap: 2px; height: calc(var(--lh) / 3); margin-bottom: var(--half); }
+.segments > * { flex: var(--v, 1) 0 0; min-width: 2px; background: var(--c); }
+
+@media (forced-colors: active) {
+  .chart .line { stroke: CanvasText; }
+  .chart .col, .key, .segments > * { forced-color-adjust: none; }
+}

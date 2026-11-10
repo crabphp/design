@@ -1,0 +1,268 @@
+/* Crab base: fonts, reset and plain HTML elements. No classes needed.
+   Requires tokens.css. */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+::selection { background: var(--amber); color: var(--bg); }
+
+html {
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+  margin: 0;
+  padding: var(--pad-y) max(var(--pad-x), env(safe-area-inset-right)) max(var(--pad-y), env(safe-area-inset-bottom)) max(var(--pad-x), env(safe-area-inset-left));
+  background: var(--bg);
+  color: var(--text);
+  font: var(--size)/var(--lh) var(--font);
+  font-synthesis: none;
+}
+
+/* Text */
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+
+h1, h2, h3, h4, p, ul, ol, dl, pre, table, blockquote, figure, fieldset { margin: 0 0 var(--lh); }
+h1, h2, h3, h4 {
+  color: var(--strong);
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+h1::before, h2::before, h3::before, h4::before { color: var(--faint); font-weight: 400; }
+h1::before { content: "# "; content: "# " / ""; }
+h2::before { content: "## "; content: "## " / ""; }
+h3::before { content: "### "; content: "### " / ""; }
+h4::before { content: "#### "; content: "#### " / ""; }
+h2, h3, h4 { margin-top: calc(var(--lh) * 2); }
+
+ul, ol { padding-left: 2ch; }
+li::marker { color: var(--faint); }
+ul { list-style: "- "; }
+strong, b { color: var(--strong); font-weight: 700; }
+small { font-size: inherit; color: var(--muted); }
+mark { background: var(--amber-wash); color: var(--strong); }
+abbr[title] { text-decoration: underline dotted var(--faint); text-underline-offset: 3px; }
+del { color: var(--faint); }
+ins { color: var(--ok); text-decoration: none; }
+
+code, pre, kbd, samp { font: inherit; }
+code, samp { color: var(--strong); }
+kbd { padding: 0 .5ch; border: 1px solid var(--line-strong); color: var(--strong); }
+pre {
+  overflow-x: auto;
+  padding: var(--lh) 2ch;
+  background: var(--surface);
+  color: var(--strong);
+}
+
+blockquote { padding-left: 2ch; border-left: 1px solid var(--amber); color: var(--muted); }
+blockquote > :last-child { margin-bottom: 0; }
+hr { margin: calc(var(--lh) * 2) 0; border: 0; color: var(--faint); }
+hr::before { content: "~*~"; content: "~*~" / ""; }
+img, svg, video { max-width: 100%; }
+figure { margin-inline: 0; }
+figcaption { color: var(--muted); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; }
+caption { margin-bottom: var(--lh); color: var(--muted); text-align: left; }
+th, td {
+  border: 1px solid var(--line);
+  padding: var(--half) 2ch;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+}
+thead th { color: var(--faint); }
+tbody th { color: var(--strong); }
+tfoot td, tfoot th { color: var(--strong); }
+
+/* Disclosure */
+summary { cursor: pointer; list-style: none; color: var(--strong); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: " +"; content: " +" / ""; color: var(--amber); }
+details[open] > summary::after { content: " −"; content: " −" / ""; }
+details[open] > summary { margin-bottom: var(--half); }
+details { margin-bottom: var(--lh); }
+
+/* Buttons: bracketed text. See components.css for .solid, .quiet and .danger. */
+button, input, select, textarea { font: inherit; color: inherit; }
+button, .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5ch;
+  min-height: var(--control);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--amber);
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+button::before, .button::before { content: "["; content: "[" / ""; }
+button::after, .button::after { content: "]"; content: "]" / ""; }
+button:hover:not(:disabled), .button:hover { text-decoration: underline; text-underline-offset: 3px; }
+button:disabled, .button[aria-disabled="true"] { color: var(--faint); cursor: not-allowed; text-decoration: none; }
+
+/* Form controls */
+label { display: block; color: var(--strong); }
+fieldset { min-width: 0; padding: 0; border: 0; }
+legend { padding: 0; margin-bottom: var(--half); color: var(--faint); }
+
+input, select, textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--control);
+  margin: 0;
+  /* One line of text plus half a line of padding makes a control 1.5 lines tall. */
+  padding: calc(var(--lh) / 4 - 1px) 1ch;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--strong);
+  line-height: var(--lh);
+  appearance: none;
+}
+input::placeholder, textarea::placeholder { color: var(--faint); opacity: 1; }
+input:hover, select:hover, textarea:hover { border-color: var(--muted); }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline-offset: 0; border-color: var(--amber); }
+input:disabled, select:disabled, textarea:disabled { border-color: var(--line); color: var(--faint); cursor: not-allowed; }
+input[readonly], textarea[readonly] { background: var(--surface); }
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--danger); }
+input, select:not([multiple]) { height: var(--control); }
+textarea { min-height: calc(var(--lh) * 4); resize: vertical; }
+
+select {
+  padding-right: 4ch;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0h10L5 6z' fill='%23ffffff' fill-opacity='.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.5ch center;
+  cursor: pointer;
+}
+select[multiple] { padding-right: 1ch; background-image: none; }
+option { background: var(--bg); color: var(--strong); }
+
+/* Checkbox, radio and switch are drawn as text: [x] (*) [ on] */
+input[type="checkbox"], input[type="radio"] {
+  display: inline-block;
+  flex: none;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--faint);
+  cursor: pointer;
+  white-space: pre;
+  vertical-align: top;
+  height: auto;
+}
+input[type="checkbox"]::before { content: "[ ]"; }
+input[type="checkbox"]:checked::before { content: "[x]"; }
+input[type="checkbox"]:indeterminate::before { content: "[-]"; }
+input[type="radio"]::before { content: "( )"; }
+input[type="radio"]:checked::before { content: "(*)"; }
+input[type="checkbox"][role="switch"]::before { content: "[off]"; }
+input[type="checkbox"][role="switch"]:checked::before { content: "[ on]"; }
+input[type="checkbox"]:checked, input[type="checkbox"]:indeterminate, input[type="radio"]:checked { color: var(--amber); }
+input[type="checkbox"]:disabled, input[type="radio"]:disabled { color: var(--line-strong); }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible { outline-offset: 2px; }
+
+input[type="range"] { height: var(--lh); min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 1px; background: var(--line-strong); }
+input[type="range"]::-moz-range-track { height: 1px; background: var(--line-strong); }
+input[type="range"]::-webkit-slider-thumb { appearance: none; width: 1ch; height: var(--lh); margin-top: calc(var(--lh) / -2); border: 0; border-radius: 0; background: var(--amber); }
+input[type="range"]::-moz-range-thumb { width: 1ch; height: var(--lh); border: 0; border-radius: 0; background: var(--amber); }
+input[type="range"]::-moz-range-progress { height: 1px; background: var(--amber); }
+
+input[type="file"] { padding: 0; border: 0; background: none; color: var(--muted); cursor: pointer; }
+input[type="file"]::file-selector-button {
+  height: var(--control);
+  margin: 0 2ch 0 0;
+  padding: 0 1ch;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: none;
+  color: var(--amber);
+  font: inherit;
+  cursor: pointer;
+}
+input[type="search"]::-webkit-search-cancel-button { appearance: none; }
+input[type="color"] { width: 6ch; padding: 2px; cursor: pointer; }
+::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .5; cursor: pointer; }
+
+progress, meter {
+  display: block;
+  width: 100%;
+  height: calc(var(--lh) / 3);
+  border: 0;
+  border-radius: 0;
+  background: var(--line);
+  color: var(--amber);
+  appearance: none;
+}
+meter::-webkit-meter-inner-element { display: block; height: 100%; }
+progress::-webkit-progress-bar, meter::-webkit-meter-bar { height: 100%; border: 0; border-radius: 0; background: var(--line); }
+progress::-webkit-progress-value { background: var(--amber); }
+progress::-moz-progress-bar { background: var(--amber); }
+meter::-webkit-meter-optimum-value { background: var(--amber); }
+meter::-webkit-meter-suboptimum-value { background: var(--warn); }
+meter::-webkit-meter-even-less-good-value { background: var(--danger); }
+meter::-moz-meter-bar { background: var(--amber); }
+meter:-moz-meter-sub-optimum::-moz-meter-bar { background: var(--warn); }
+meter:-moz-meter-sub-sub-optimum::-moz-meter-bar { background: var(--danger); }
+
+/* Dialog */
+dialog {
+  width: min(64ch, calc(100% - var(--pad-x) * 2));
+  max-height: calc(100dvh - var(--pad-y) * 2);
+  padding: var(--lh) 2ch;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--text);
+  overflow-y: auto;
+}
+dialog::backdrop { background: var(--overlay); }
+dialog > :first-child { margin-top: 0; }
+dialog > :last-child { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Touch-sized targets, and 16px input text so iOS does not zoom on focus. */
+@media (max-width: 860px) {
+  button, .button, summary { min-height: var(--touch); }
+  summary { display: flex; align-items: center; gap: 1ch; }
+  input, select, textarea { min-height: var(--touch); font-size: 16px; }
+  input, select:not([multiple]) { height: var(--touch); }
+  input[type="checkbox"], input[type="radio"] { height: auto; min-height: 0; font-size: inherit; }
+  input[type="range"] { height: var(--touch); }
+  input[type="file"]::file-selector-button { height: var(--touch); }
+}
+@media (max-width: 560px) {
+  pre { margin-inline: calc(var(--pad-x) * -1); padding-inline: var(--pad-x); font-size: 13px; }
+}

@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crab design system</title>
+  <meta name="description" content="Tokens, components and charts for CrabPHP applications.">
+  <link rel="stylesheet" href="css/crab.css">
+  <link rel="stylesheet" href="demo/demo.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell wide">
+  <header class="site-header">
+    <a class="wordmark" href="#top" id="top">crab<span>.</span><small>design</small></a>
+    <nav aria-label="Files">
+      <a href="css/tokens.css">tokens.css</a>
+      <a href="css/base.css">base.css</a>
+      <a href="css/components.css">components.css</a>
+      <a href="css/charts.css">charts.css</a>
+      <a href="design.md">design.md</a>
+    </nav>
+  </header>
+
+  <details class="shell-nav" open>
+    <summary>Contents</summary>
+    <nav class="nav-list" aria-label="Contents">
+      <p>Foundations</p>
+      <ul>
+        <li><a href="#colour">Colour</a></li>
+        <li><a href="#type">Type and space</a></li>
+        <li><a href="#text">Text elements</a></li>
+      </ul>
+      <p>Actions</p>
+      <ul>
+        <li><a href="#buttons">Buttons</a></li>
+        <li><a href="#segmented">Segmented</a></li>
+        <li><a href="#menu">Menu</a></li>
+      </ul>
+      <p>Forms</p>
+      <ul>
+        <li><a href="#inputs">Inputs</a></li>
+        <li><a href="#choices">Choices</a></li>
+        <li><a href="#groups">Groups and chips</a></li>
+        <li><a href="#validation">Validation</a></li>
+        <li><a href="#form">A whole form</a></li>
+      </ul>
+      <p>Data</p>
+      <ul>
+        <li><a href="#tables">Tables</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#badges">Badges</a></li>
+        <li><a href="#rows">Rows</a></li>
+        <li><a href="#defs">Definitions</a></li>
+        <li><a href="#progress">Progress</a></li>
+        <li><a href="#empty">Empty</a></li>
+      </ul>
+      <p>Charts</p>
+      <ul>
+        <li><a href="#chart-colour">Chart colour</a></li>
+        <li><a href="#chart-line">Line</a></li>
+        <li><a href="#chart-columns">Columns</a></li>
+        <li><a href="#chart-ranking">Ranking</a></li>
+        <li><a href="#chart-heatmap">Heatmap</a></li>
+        <li><a href="#chart-segments">Segments</a></li>
+      </ul>
+      <p>Navigation</p>
+      <ul>
+        <li><a href="#tabs">Tabs</a></li>
+        <li><a href="#breadcrumb">Breadcrumb</a></li>
+        <li><a href="#pagination">Pagination</a></li>
+        <li><a href="#nav-list">Nav list</a></li>
+      </ul>
+      <p>Feedback</p>
+      <ul>
+        <li><a href="#notes">Notes</a></li>
+        <li><a href="#toasts">Toasts</a></li>
+        <li><a href="#dialog">Dialog</a></li>
+        <li><a href="#loading">Loading</a></li>
+        <li><a href="#tooltip">Tooltip</a></li>
+      </ul>
+      <p>Patterns</p>
+      <ul>
+        <li><a href="#pattern-analytics">Analytics</a></li>
+        <li><a href="#pattern-mail">Mailbox</a></li>
+        <li><a href="#pattern-settings">Settings</a></li>
+      </ul>
+    </nav>
+  </details>
+
+  <main class="shell-main" id="main">
+    <h1>Crab design system<span class="cursor" aria-hidden="true">█</span></h1>
+    <p class="lede">Tokens, components and charts for CrabPHP applications. It looks like the Crab site: one typeface, one size, a dark page, amber for what you can act on. Everything here is plain HTML and CSS; copy the markup under any example.</p>
+    <pre><code>&lt;link rel="stylesheet" href="css/crab.css"&gt;</code></pre>
+
+    <!-- ═══ Foundations ═══ -->
+    <h2 id="colour">Colour</h2>
+    <p class="muted">Every colour is a token in <code>tokens.css</code>. White carries text at four strengths, amber marks what you can act on, and four status colours always sit beside a word.</p>
+    <div class="swatches" data-swatches="--bg --surface --surface-hover --line --line-strong"></div>
+    <div class="swatches" data-swatches="--strong --text --muted --faint"></div>
+    <div class="swatches" data-swatches="--amber --amber-wash --ok --warn --danger --info"></div>
+
+    <h2 id="type">Type and space</h2>
+    <p class="muted">One family, one size, one line height, two weights. Vertical space is counted in lines and horizontal space in characters, so everything sits on the same grid.</p>
+    <table class="plain token-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>--font</code></td><td data-token="--font"></td><td class="muted">The only typeface</td></tr>
+        <tr><td><code>--size</code></td><td data-token="--size"></td><td class="muted">The only text size; 14px on phones</td></tr>
+        <tr><td><code>--lh</code></td><td data-token="--lh"></td><td class="muted">One line: the unit of vertical space</td></tr>
+        <tr><td><code>--half</code></td><td>half a line</td><td class="muted">Cell padding, gaps inside a component</td></tr>
+        <tr><td><code>--gap</code></td><td data-token="--gap"></td><td class="muted">Horizontal gap between related things</td></tr>
+        <tr><td><code>--gutter</code></td><td data-token="--gutter"></td><td class="muted">Between columns</td></tr>
+        <tr><td><code>--measure</code></td><td data-token="--measure"></td><td class="muted">Reading column</td></tr>
+        <tr><td><code>--wide</code></td><td data-token="--wide"></td><td class="muted">Application content</td></tr>
+        <tr><td><code>--nav</code></td><td data-token="--nav"></td><td class="muted">Navigation column</td></tr>
+        <tr><td><code>--control</code></td><td>1.5 lines</td><td class="muted">Height of an input or solid button</td></tr>
+        <tr><td><code>--touch</code></td><td data-token="--touch"></td><td class="muted">Smallest target on touch screens</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="text">Text elements</h2>
+    <p class="muted">Plain HTML needs no classes. Headings are uppercase and bold at body size, marked like Markdown.</p>
+    <div class="demo">
+      <h3>A third-level heading</h3>
+      <p>Body text at 88% white with a <a href="#text">link in amber</a>, <strong>strong text in full white</strong>, <code>inline code</code>, <mark>a highlight</mark> and a key such as <kbd>Ctrl</kbd> <kbd>K</kbd>.</p>
+      <ul>
+        <li>Lists use a dash</li>
+        <li>in faint white</li>
+      </ul>
+      <ol>
+        <li>Numbered steps</li>
+        <li>keep their numbers</li>
+      </ol>
+      <blockquote><p>A note has a thin amber rule on its left.</p></blockquote>
+      <pre><code>composer create-project crabphp/crab app</code></pre>
+      <hr>
+    </div>
+
+    <!-- ═══ Actions ═══ -->
+    <h2 id="buttons">Buttons</h2>
+    <p class="muted">A button is bracketed amber text. Use one <code>.solid</code> button for the main action of a view, <code>.quiet</code> for secondary actions and <code>.danger</code> for destructive ones.</p>
+    <div class="demo">
+      <div class="toolbar">
+        <button type="button" class="solid">Save changes</button>
+        <button type="button">Refresh</button>
+        <button type="button" class="quiet">Cancel</button>
+        <button type="button" class="danger">Delete site</button>
+        <a class="button" href="#buttons">Link as button</a>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="solid" disabled>Save changes</button>
+        <button type="button" disabled>Refresh</button>
+        <button type="button" class="solid danger">Delete forever</button>
+        <button type="button" disabled><span class="spinner" role="status" aria-label="Loading"></span> Sending</button>
+      </div>
+    </div>
+
+    <h2 id="segmented">Segmented</h2>
+    <p class="muted">A few choices where one is on. Each button carries <code>aria-pressed</code>.</p>
+    <div class="demo">
+      <div class="segmented" role="group" aria-label="Date range">
+        <button type="button" aria-pressed="false">Today</button>
+        <button type="button" aria-pressed="true">7 days</button>
+        <button type="button" aria-pressed="false">30 days</button>
+        <button type="button" aria-pressed="false">12 months</button>
+      </div>
+    </div>
+
+    <h2 id="menu">Menu</h2>
+    <p class="muted">A native popover: it opens under its button, closes on Escape or a click outside, and needs no script.</p>
+    <div class="demo">
+      <button type="button" popovertarget="demo-menu">Actions</button>
+      <div id="demo-menu" popover class="menu">
+        <p>Message</p>
+        <button type="button">Reply</button>
+        <button type="button">Forward</button>
+        <a href="#menu">Open in new window</a>
+        <hr>
+        <button type="button" class="danger">Delete</button>
+      </div>
+    </div>
+
+    <!-- ═══ Forms ═══ -->
+    <h2 id="inputs">Inputs</h2>
+    <p class="muted">A <code>.field</code> is a label, a control and an optional help line. Controls are square, one and a half lines tall, with a border strong enough to see.</p>
+    <div class="demo">
+      <div class="form-grid">
+        <div class="field">
+          <label for="in-text">Site name</label>
+          <input id="in-text" type="text" value="Crab blog">
+        </div>
+        <div class="field">
+          <label for="in-email">Email <span class="hint">optional</span></label>
+          <input id="in-email" type="email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="in-select">Timezone</label>
+          <select id="in-select">
+            <option>UTC</option>
+            <option selected>Asia/Ho_Chi_Minh</option>
+            <option>Europe/Berlin</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="in-date">Start date</label>
+          <input id="in-date" type="date" value="2026-11-10">
+        </div>
+        <div class="field">
+          <label for="in-number">Retention <span class="hint">days</span></label>
+          <input id="in-number" type="number" value="90" min="1">
+        </div>
+        <div class="field">
+          <label for="in-password">API token</label>
+          <input id="in-password" type="password" value="crab_live_8f2k1x">
+        </div>
+        <div class="field">
+          <label for="in-disabled">Site ID</label>
+          <input id="in-disabled" type="text" value="site_01HXY" disabled>
+          <small>Set when the site is created.</small>
+        </div>
+        <div class="field">
+          <label for="in-readonly">Tracking domain</label>
+          <input id="in-readonly" type="text" value="pulse.crabphp.com" readonly>
+        </div>
+      </div>
+      <div class="field">
+        <label for="in-textarea">Message</label>
+        <textarea id="in-textarea" placeholder="Write something plain."></textarea>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="in-file">Attachment</label>
+          <input id="in-file" type="file">
+        </div>
+        <div class="field">
+          <label for="in-range">Sample rate</label>
+          <input id="in-range" type="range" min="0" max="100" value="40">
+        </div>
+      </div>
+    </div>
+
+    <h2 id="choices">Choices</h2>
+    <p class="muted">Checkboxes, radios and switches are drawn as text. A switch is a checkbox with <code>role="switch"</code>.</p>
+    <div class="demo">
+      <div class="cols">
+        <fieldset>
+          <legend>Collect</legend>
+          <label class="check"><input type="checkbox" checked> Page views</label>
+          <label class="check"><input type="checkbox" checked> Custom events</label>
+          <label class="check"><input type="checkbox"> Outbound links</label>
+          <label class="check"><input type="checkbox" disabled> Session replay</label>
+        </fieldset>
+        <fieldset>
+          <legend>Digest</legend>
+          <label class="check"><input type="radio" name="digest" checked> Weekly</label>
+          <label class="check"><input type="radio" name="digest"> Monthly</label>
+          <label class="check"><input type="radio" name="digest"> Never</label>
+        </fieldset>
+        <fieldset>
+          <legend>Site</legend>
+          <label class="check"><input type="checkbox" role="switch" checked> Tracking</label>
+          <label class="check"><input type="checkbox" role="switch"> Public dashboard</label>
+          <label class="check">
+            <input type="checkbox" role="switch">
+            <span>Respect Do Not Track <small>Visitors who ask not to be counted are skipped.</small></span>
+          </label>
+        </fieldset>
+      </div>
+    </div>
+
+    <h2 id="groups">Groups and chips</h2>
+    <p class="muted">An <code>.input-group</code> attaches text or a button to a control. Chips hold a set of values, such as recipients or filters.</p>
+    <div class="demo">
+      <div class="form-grid">
+        <div class="field">
+          <label for="in-domain">Domain</label>
+          <div class="input-group">
+            <span class="addon">https://</span>
+            <input id="in-domain" type="text" value="crabphp.com">
+          </div>
+        </div>
+        <div class="field">
+          <label for="in-search">Search mail</label>
+          <div class="input-group">
+            <input id="in-search" type="search" placeholder="from:cua invoice">
+            <button type="submit">Search</button>
+          </div>
+        </div>
+      </div>
+      <ul class="chips" aria-label="Recipients">
+        <li class="chip">cua@crabphp.com <button type="button" aria-label="Remove cua@crabphp.com">×</button></li>
+        <li class="chip">team@crabphp.com <button type="button" aria-label="Remove team@crabphp.com">×</button></li>
+        <li class="chip">billing@example.com <button type="button" aria-label="Remove billing@example.com">×</button></li>
+      </ul>
+    </div>
+
+    <h2 id="validation">Validation</h2>
+    <p class="muted">An invalid control takes <code>aria-invalid="true"</code> and an <code>.error</code> line that says what to fix.</p>
+    <div class="demo">
+      <div class="form-grid">
+        <div class="field">
+          <label for="in-bad">Domain</label>
+          <input id="in-bad" type="text" value="crab php" aria-invalid="true" aria-describedby="in-bad-error">
+          <small class="error" id="in-bad-error">A domain cannot contain spaces.</small>
+        </div>
+        <div class="field">
+          <label for="in-good">Sender name</label>
+          <input id="in-good" type="text" value="Cua" aria-describedby="in-good-help">
+          <small id="in-good-help">Shown next to your address in the inbox.</small>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="form">A whole form</h2>
+    <div class="demo">
+      <form class="demo-form" onsubmit="return false">
+        <div class="field">
+          <label for="f-name">Site name</label>
+          <input id="f-name" type="text" placeholder="My site" required>
+        </div>
+        <div class="field">
+          <label for="f-domain">Domain</label>
+          <div class="input-group">
+            <span class="addon">https://</span>
+            <input id="f-domain" type="text" placeholder="example.com" required>
+          </div>
+          <small>Only page views from this domain are counted.</small>
+        </div>
+        <div class="field">
+          <label for="f-zone">Reporting timezone</label>
+          <select id="f-zone"><option>UTC</option><option>Asia/Ho_Chi_Minh</option></select>
+        </div>
+        <label class="check"><input type="checkbox" checked> Email me a weekly summary</label>
+        <div class="actions">
+          <button type="submit" class="solid">Create site</button>
+          <button type="reset" class="quiet">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ═══ Data ═══ -->
+    <h2 id="tables">Tables</h2>
+    <p class="muted">The default table is a thin grid. Numbers align right with tabular figures. Wrap a wide table in <code>.table-wrap</code> so it scrolls instead of shrinking.</p>
+    <div class="demo">
+      <div class="table-wrap">
+        <table class="hover" id="demo-sort">
+          <caption>Sites in this workspace</caption>
+          <thead>
+            <tr>
+              <th aria-sort="ascending"><button type="button" class="sort">Site</button></th>
+              <th>Status</th>
+              <th class="num" aria-sort="none"><button type="button" class="sort">Visitors</button></th>
+              <th class="num" aria-sort="none"><button type="button" class="sort">Bounce</button></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>blog.crabphp.com</td><td><span class="badge ok">Receiving</span></td><td class="num">8,204</td><td class="num">38%</td><td class="num"><a href="#tables">Open</a></td></tr>
+            <tr aria-selected="true"><td>crabphp.com</td><td><span class="badge ok">Receiving</span></td><td class="num">48,912</td><td class="num">41%</td><td class="num"><a href="#tables">Open</a></td></tr>
+            <tr><td>docs.crabphp.com</td><td><span class="badge warn">No data for 2 days</span></td><td class="num">21,377</td><td class="num">27%</td><td class="num"><a href="#tables">Open</a></td></tr>
+            <tr><td>shop.example.com</td><td><span class="badge">Paused</span></td><td class="num">0</td><td class="num">0%</td><td class="num"><a href="#tables">Open</a></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><th scope="row">4 sites</th><td></td><td class="num">78,493</td><td class="num">37%</td><td></td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <p class="muted">Add <code>.plain</code> for rows without a grid, and <code>.compact</code> for dense data.</p>
+    <div class="demo">
+      <table class="plain compact">
+        <thead><tr><th>Event</th><th>When</th><th class="num">Duration</th></tr></thead>
+        <tbody>
+          <tr><td>queue:work started</td><td class="muted">10:42:07</td><td class="num">12 ms</td></tr>
+          <tr><td>mail.send to cua@crabphp.com</td><td class="muted">10:42:09</td><td class="num">184 ms</td></tr>
+          <tr class="accent"><td>schedule:run</td><td>10:43:00</td><td class="num">3 ms</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="stats">Stats</h2>
+    <p class="muted">Headline numbers. The value is bold, not bigger. A change shows its direction with an arrow and says what it is compared with.</p>
+    <div class="demo">
+      <dl class="stats">
+        <div class="stat">
+          <dt>Visitors</dt>
+          <dd>48,912</dd>
+          <small class="delta up">12.4% vs last week</small>
+        </div>
+        <div class="stat">
+          <dt>Page views</dt>
+          <dd>131,070</dd>
+          <small class="delta up">8.1% vs last week</small>
+        </div>
+        <div class="stat">
+          <dt>Bounce rate</dt>
+          <dd>41%</dd>
+          <small class="delta up invert">3 points vs last week</small>
+        </div>
+        <div class="stat">
+          <dt>Visit time</dt>
+          <dd>2m 14s</dd>
+          <small class="delta">no change</small>
+        </div>
+      </dl>
+    </div>
+
+    <h2 id="badges">Badges</h2>
+    <p class="muted">State is a word with a coloured mark in front of it. The word carries the meaning; the colour only helps you scan.</p>
+    <div class="demo">
+      <div class="toolbar">
+        <span class="badge ok">Delivered</span>
+        <span class="badge warn">Deferred</span>
+        <span class="badge danger">Bounced</span>
+        <span class="badge info">Queued</span>
+        <span class="badge accent">New</span>
+        <span class="badge">Draft</span>
+        <span class="avatar" aria-hidden="true">cu</span>
+        <span class="count">128</span>
+      </div>
+    </div>
+
+    <h2 id="rows">Rows</h2>
+    <p class="muted">A list you pick from: messages, events, jobs. The current row has an amber edge; unread rows are bold with a star.</p>
+    <div class="demo demo-narrow">
+      <ul class="rows">
+        <li><a class="row unread" href="#rows">
+          <span class="row-title">Cua the Crab</span><time class="row-meta">09:12</time>
+          <span class="row-text">Benchmarks are in — all seven frameworks finished with zero errors</span>
+        </a></li>
+        <li><a class="row" href="#rows" aria-current="true">
+          <span class="row-title">Packagist</span><time class="row-meta">Mon</time>
+          <span class="row-text">crabphp/framework 0.6.2 has been published</span>
+        </a></li>
+        <li><a class="row" href="#rows">
+          <span class="row-title">Cloudflare</span><time class="row-meta">2 Nov</time>
+          <span class="row-text">Your deployment to crabphp-site succeeded</span>
+        </a></li>
+      </ul>
+    </div>
+
+    <h2 id="defs">Definitions</h2>
+    <p class="muted">A term beside its value: settings, a message envelope, a list of commands.</p>
+    <div class="demo">
+      <dl class="defs">
+        <dt>From</dt><dd>Cua the Crab &lt;cua@crabphp.com&gt;</dd>
+        <dt>To</dt><dd>team@crabphp.com</dd>
+        <dt>Sent</dt><dd>10 Nov 2026, 09:12</dd>
+        <dt>Message ID</dt><dd><code>&lt;01HXY7K2Q9@mail.crabphp.com&gt;</code></dd>
+      </dl>
+    </div>
+
+    <h2 id="progress">Progress</h2>
+    <p class="muted">A thin bar for how much of something is used or done. Say the number next to it.</p>
+    <div class="demo demo-narrow">
+      <div class="field">
+        <label for="p-quota">Monthly events <span class="hint">62,000 of 100,000</span></label>
+        <progress id="p-quota" value="62" max="100">62%</progress>
+      </div>
+      <div class="field">
+        <label for="p-disk">Mailbox storage <span class="hint">9.1 of 10 GB</span></label>
+        <meter id="p-disk" value="9.1" min="0" max="10" low="7" high="9" optimum="2">9.1 GB</meter>
+      </div>
+    </div>
+
+    <h2 id="empty">Empty</h2>
+    <p class="muted">When there is nothing to show, say why and offer the next step.</p>
+    <div class="demo demo-narrow">
+      <div class="empty">
+        <p><strong>No visits yet.</strong> Add the tracking script to your site and the first visit will show up here within a minute.</p>
+        <p><a href="#empty">Show the script <span aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+
+    <!-- ═══ Charts ═══ -->
+    <h2 id="chart-colour">Chart colour</h2>
+    <p class="muted">Seven series colours in a fixed order, chosen so neighbours stay apart for colour-blind readers. Assign them in order and never reuse one for a different series. A one-hue ramp shows magnitude.</p>
+    <div class="swatches" data-swatches="--chart-1 --chart-2 --chart-3 --chart-4 --chart-5 --chart-6 --chart-7 --chart-other"></div>
+    <div class="swatches" data-swatches="--seq-1 --seq-2 --seq-3 --seq-4 --seq-5"></div>
+
+    <h2 id="chart-line">Line</h2>
+    <p class="muted">Change over time. Hover or use the arrow keys to read a day; every chart also offers its numbers as a table.</p>
+    <figure class="chart" id="chart-visitors">
+      <figcaption>Visitors <small>last 30 days</small></figcaption>
+    </figure>
+    <figure class="chart" id="chart-mail">
+      <figcaption>Email activity <small>last 14 days</small></figcaption>
+    </figure>
+
+    <h2 id="chart-columns">Columns</h2>
+    <p class="muted">Amounts per period. Bars are thin and square, and stacked parts are separated by a gap, not an outline.</p>
+    <div class="cols" style="--col: 40ch">
+      <figure class="chart" id="chart-sent">
+        <figcaption>Emails sent <small>per day</small></figcaption>
+      </figure>
+      <figure class="chart" id="chart-sources">
+        <figcaption>Visits by source <small>per week</small></figcaption>
+      </figure>
+    </div>
+
+    <h2 id="chart-ranking">Ranking</h2>
+    <p class="muted">Compare named things with a table and an inline <code>.bar</code>. The table already is the data, so nothing else is needed.</p>
+    <div class="demo">
+      <table class="plain fixed">
+        <thead><tr><th>Page</th><th class="demo-barcol"></th><th class="num demo-numcol">Visitors</th></tr></thead>
+        <tbody>
+          <tr><td class="truncate">/</td><td><span class="bar" style="--v: 100%"></span></td><td class="num">18,420</td></tr>
+          <tr><td class="truncate">/docs/installation</td><td><span class="bar" style="--v: 64%"></span></td><td class="num">11,790</td></tr>
+          <tr><td class="truncate">/docs/routing</td><td><span class="bar" style="--v: 41%"></span></td><td class="num">7,552</td></tr>
+          <tr><td class="truncate">/benchmarks</td><td><span class="bar" style="--v: 22%"></span></td><td class="num">4,051</td></tr>
+          <tr><td class="truncate">/docs/queues</td><td><span class="bar" style="--v: 9%"></span></td><td class="num">1,660</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="chart-heatmap">Heatmap</h2>
+    <p class="muted">How much, across two dimensions: here, when mail arrives.</p>
+    <figure class="chart" id="chart-heat">
+      <figcaption>Messages received <small>by weekday and hour, UTC</small></figcaption>
+    </figure>
+
+    <h2 id="chart-segments">Segments</h2>
+    <p class="muted">One whole split into a few parts. The legend names each part and its share.</p>
+    <figure class="chart demo-narrow" id="chart-devices">
+      <figcaption>Devices</figcaption>
+    </figure>
+
+    <!-- ═══ Navigation ═══ -->
+    <h2 id="tabs">Tabs</h2>
+    <div class="demo">
+      <div class="tabs" role="tablist" aria-label="Site">
+        <button type="button" role="tab" aria-selected="true" aria-controls="tab-overview" id="t-overview">Overview</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-events" id="t-events" tabindex="-1">Events</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="tab-settings" id="t-settings" tabindex="-1">Settings</button>
+      </div>
+      <p role="tabpanel" id="tab-overview" aria-labelledby="t-overview">Visitors, pages and sources for the chosen range.</p>
+      <p role="tabpanel" id="tab-events" aria-labelledby="t-events" hidden>Custom events sent by your site.</p>
+      <p role="tabpanel" id="tab-settings" aria-labelledby="t-settings" hidden>Domain, timezone and the tracking script.</p>
+    </div>
+
+    <h2 id="breadcrumb">Breadcrumb</h2>
+    <div class="demo">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="#breadcrumb">Sites</a></li>
+          <li><a href="#breadcrumb">crabphp.com</a></li>
+          <li aria-current="page">Settings</li>
+        </ol>
+      </nav>
+    </div>
+
+    <h2 id="pagination">Pagination</h2>
+    <div class="demo">
+      <nav class="pagination" aria-label="Pages">
+        <a href="#pagination"><span aria-hidden="true">←</span> Newer</a>
+        <a href="#pagination">1</a>
+        <a href="#pagination" aria-current="page">2</a>
+        <a href="#pagination">3</a>
+        <span>…</span>
+        <a href="#pagination">12</a>
+        <a href="#pagination">Older <span aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+
+    <h2 id="nav-list">Nav list</h2>
+    <p class="muted">The column on the left of this page. The current item is amber and marked with <code>&gt;</code>; a <code>.count</code> sits at the right.</p>
+    <div class="demo demo-nav">
+      <nav class="nav-list" aria-label="Mailboxes">
+        <p>Mail</p>
+        <ul>
+          <li><a href="#nav-list" aria-current="page"><span>Inbox</span><span class="count">12</span></a></li>
+          <li><a href="#nav-list"><span>Drafts</span><span class="count">2</span></a></li>
+          <li><a href="#nav-list"><span>Sent</span></a></li>
+          <li><a href="#nav-list"><span>Archive</span></a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- ═══ Feedback ═══ -->
+    <h2 id="notes">Notes</h2>
+    <p class="muted">A message in the page. Start with the word that says what it is.</p>
+    <div class="demo">
+      <div class="note"><strong>Note.</strong> Reports use UTC unless the site sets a timezone.</div>
+      <div class="note ok" role="status"><strong>Saved.</strong> Your changes are live.</div>
+      <div class="note warn"><strong>Warning.</strong> This site has sent no data for 2 days.</div>
+      <div class="note danger" role="alert"><strong>Error.</strong> The message could not be sent: the recipient's server refused it. <a href="#notes">Try again</a></div>
+    </div>
+
+    <h2 id="toasts">Toasts</h2>
+    <p class="muted">A short confirmation that leaves on its own. Put a <code>.toasts</code> region at the end of the page and add each message to it.</p>
+    <div class="demo" data-nocode>
+      <div class="toolbar">
+        <button type="button" data-toast="ok" data-message="Message sent.">Show a success</button>
+        <button type="button" data-toast="danger" data-message="Could not save. Try again.">Show an error</button>
+      </div>
+    </div>
+    <pre><code>&lt;div class="toasts" role="region" aria-label="Notifications" aria-live="polite"&gt;
+  &lt;div class="toast ok"&gt;Message sent. &lt;button type="button" class="quiet"&gt;Dismiss&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2 id="dialog">Dialog</h2>
+    <p class="muted">The native <code>&lt;dialog&gt;</code>, opened with <code>showModal()</code>. A form with <code>method="dialog"</code> closes it.</p>
+    <div class="demo">
+      <button type="button" data-dialog="demo-dialog">Delete site</button>
+      <dialog id="demo-dialog" aria-labelledby="demo-dialog-title">
+        <h2 id="demo-dialog-title">Delete crabphp.com?</h2>
+        <p>This removes the site and all of its analytics. It cannot be undone.</p>
+        <form method="dialog" class="actions">
+          <button value="delete" class="solid danger">Delete site</button>
+          <button value="cancel" class="quiet" autofocus>Keep it</button>
+        </form>
+      </dialog>
+    </div>
+
+    <h2 id="loading">Loading</h2>
+    <p class="muted">A spinner beside words. It stops for people who ask for reduced motion.</p>
+    <div class="demo">
+      <p><span class="spinner" role="status" aria-label="Loading"></span> Loading the report</p>
+    </div>
+
+    <h2 id="tooltip">Tooltip</h2>
+    <p class="muted">Wrap the target in an element with <code>data-tip</code>. Use it for a hint, never for something people must read.</p>
+    <div class="demo">
+      <span data-tip="Copies the script to your clipboard"><button type="button">Copy</button></span>
+    </div>
+
+    <!-- ═══ Patterns ═══ -->
+    <h2 id="pattern-analytics">Pattern: analytics</h2>
+    <p class="muted">A Pulse report built from the pieces above: filters in one row, headline numbers, one chart, two rankings.</p>
+    <section class="pattern" aria-label="Analytics example">
+      <div class="toolbar">
+        <div class="input-group">
+          <label class="addon" for="pa-site">Site</label>
+          <select id="pa-site" class="demo-select"><option>crabphp.com</option><option>docs.crabphp.com</option></select>
+        </div>
+        <div class="segmented" role="group" aria-label="Date range">
+          <button type="button" aria-pressed="false">Today</button>
+          <button type="button" aria-pressed="false">7 days</button>
+          <button type="button" aria-pressed="true">30 days</button>
+        </div>
+        <span class="spacer badge ok">Receiving</span>
+        <button type="button">Refresh</button>
+      </div>
+      <dl class="stats">
+        <div class="stat"><dt>Visitors</dt><dd>48,912 <span data-spark="31,34,30,38,41,39,44,47,45,52,58,61"></span></dd><small class="delta up">12.4% vs previous 30 days</small></div>
+        <div class="stat"><dt>Page views</dt><dd>131,070 <span data-spark="80,84,90,86,95,99,97,104,110,108,119,124"></span></dd><small class="delta up">8.1% vs previous 30 days</small></div>
+        <div class="stat"><dt>Bounce rate</dt><dd>41% <span data-spark="38,39,37,40,39,41,40,42,41,40,42,41"></span></dd><small class="delta up invert">3 points vs previous 30 days</small></div>
+      </dl>
+      <figure class="chart" id="pattern-chart">
+        <figcaption>Visitors <small>per day</small></figcaption>
+      </figure>
+      <div class="cols" style="--col: 36ch">
+        <table class="plain fixed">
+          <caption>Top pages</caption>
+          <thead><tr><th>Page</th><th class="demo-barcol"></th><th class="num demo-numcol">Visitors</th></tr></thead>
+          <tbody>
+            <tr><td class="truncate">/</td><td><span class="bar" style="--v: 100%"></span></td><td class="num">18,420</td></tr>
+            <tr><td class="truncate">/docs/installation</td><td><span class="bar" style="--v: 64%"></span></td><td class="num">11,790</td></tr>
+            <tr><td class="truncate">/docs/routing</td><td><span class="bar" style="--v: 41%"></span></td><td class="num">7,552</td></tr>
+          </tbody>
+        </table>
+        <table class="plain fixed">
+          <caption>Top sources</caption>
+          <thead><tr><th>Source</th><th class="demo-barcol"></th><th class="num demo-numcol">Visitors</th></tr></thead>
+          <tbody>
+            <tr><td class="truncate">Direct</td><td><span class="bar" style="--v: 100%"></span></td><td class="num">21,004</td></tr>
+            <tr><td class="truncate">github.com</td><td><span class="bar" style="--v: 58%"></span></td><td class="num">12,187</td></tr>
+            <tr><td class="truncate">news.ycombinator.com</td><td><span class="bar" style="--v: 31%"></span></td><td class="num">6,530</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <h2 id="pattern-mail">Pattern: mailbox</h2>
+    <p class="muted">A mail client: a <code>.split</code> with rows on the left and the open message on the right. Compose opens in a dialog.</p>
+    <section class="pattern" aria-label="Mailbox example">
+      <div class="split">
+        <div>
+          <div class="toolbar">
+            <button type="button" class="solid" data-dialog="compose-dialog">Compose</button>
+            <span class="spacer faint">12 unread</span>
+          </div>
+          <div class="field">
+            <label class="sr-only" for="pm-search">Search mail</label>
+            <input id="pm-search" type="search" placeholder="Search mail">
+          </div>
+          <ul class="rows">
+            <li><a class="row unread" href="#pattern-mail">
+              <span class="row-title">Cua the Crab</span><time class="row-meta">09:12</time>
+              <span class="row-text">Benchmarks are in — all seven frameworks finished with zero errors</span>
+            </a></li>
+            <li><a class="row" href="#pattern-mail" aria-current="true">
+              <span class="row-title">Packagist</span><time class="row-meta">Mon</time>
+              <span class="row-text">crabphp/framework 0.6.2 has been published</span>
+            </a></li>
+            <li><a class="row unread" href="#pattern-mail">
+              <span class="row-title">GitHub</span><time class="row-meta">Sun</time>
+              <span class="row-text">[crabphp/framework] Queue worker exits on SIGTERM (#214)</span>
+            </a></li>
+            <li><a class="row" href="#pattern-mail">
+              <span class="row-title">Cloudflare</span><time class="row-meta">2 Nov</time>
+              <span class="row-text">Your deployment to crabphp-site succeeded</span>
+            </a></li>
+          </ul>
+        </div>
+        <article>
+          <div class="toolbar">
+            <button type="button">Reply</button>
+            <button type="button">Forward</button>
+            <button type="button" class="quiet">Archive</button>
+            <button type="button" class="quiet spacer" popovertarget="mail-menu">More</button>
+            <div id="mail-menu" popover class="menu">
+              <button type="button">Mark as unread</button>
+              <button type="button">Move to…</button>
+              <button type="button">Show original</button>
+              <hr>
+              <button type="button" class="danger">Delete</button>
+            </div>
+          </div>
+          <h3 class="demo-flush">crabphp/framework 0.6.2 has been published</h3>
+          <dl class="defs" style="--term: 6ch">
+            <dt>From</dt><dd><span class="avatar" aria-hidden="true">pa</span> Packagist &lt;noreply@packagist.org&gt;</dd>
+            <dt>To</dt><dd>cua@crabphp.com</dd>
+            <dt>Sent</dt><dd>Mon 9 Nov 2026, 14:03 <span class="badge ok">Verified sender</span></dd>
+          </dl>
+          <p>A new version of <code>crabphp/framework</code> is available.</p>
+          <p>Version 0.6.2 was tagged a few minutes ago and is ready to install. Run <code>composer update crabphp/framework</code> to get it.</p>
+          <ul class="chips" aria-label="Attachments">
+            <li class="chip"><a href="#pattern-mail">CHANGELOG.md</a> <span class="faint">4 KB</span></li>
+            <li class="chip"><a href="#pattern-mail">release-notes.txt</a> <span class="faint">1 KB</span></li>
+          </ul>
+        </article>
+      </div>
+      <dialog id="compose-dialog" aria-labelledby="compose-title">
+        <h2 id="compose-title">New message</h2>
+        <form method="dialog">
+          <div class="field">
+            <label for="c-to">To</label>
+            <input id="c-to" type="email" value="team@crabphp.com" multiple>
+          </div>
+          <div class="field">
+            <label for="c-subject">Subject</label>
+            <input id="c-subject" type="text" autofocus>
+          </div>
+          <div class="field">
+            <label for="c-body">Message</label>
+            <textarea id="c-body" rows="8"></textarea>
+          </div>
+          <div class="actions">
+            <button value="send" class="solid">Send</button>
+            <button value="draft">Save draft</button>
+            <button value="discard" class="quiet spacer">Discard</button>
+          </div>
+        </form>
+      </dialog>
+    </section>
+
+    <h2 id="pattern-settings">Pattern: settings</h2>
+    <p class="muted">A settings page: tabs, a short form, and a danger zone set apart by a heading and a note.</p>
+    <section class="pattern demo-narrow" aria-label="Settings example">
+      <nav class="tabs" aria-label="Settings">
+        <a href="#pattern-settings" aria-current="page">General</a>
+        <a href="#pattern-settings">Domains</a>
+        <a href="#pattern-settings">API tokens</a>
+      </nav>
+      <form onsubmit="return false">
+        <div class="field">
+          <label for="ps-name">Workspace name</label>
+          <input id="ps-name" type="text" value="CrabPHP">
+        </div>
+        <fieldset>
+          <legend>Notifications</legend>
+          <label class="check"><input type="checkbox" role="switch" checked> Weekly summary</label>
+          <label class="check"><input type="checkbox" role="switch"> Bounce alerts</label>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" class="solid">Save changes</button>
+          <span class="faint">Last saved 2 minutes ago</span>
+        </div>
+      </form>
+      <h3>Danger zone</h3>
+      <div class="note danger">Deleting the workspace removes every site, mailbox and token in it.</div>
+      <button type="button" class="danger" data-dialog="demo-dialog">Delete workspace</button>
+    </section>
+
+    <footer class="site-footer">~*~ Crab design system · JetBrains Mono under the OFL ~*~</footer>
+  </main>
+</div>
+
+<div class="toasts" role="region" aria-label="Notifications" aria-live="polite"></div>
+
+<script type="module" src="demo/demo.js"></script>
+</body>
+</html>

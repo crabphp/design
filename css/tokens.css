@@ -1,0 +1,100 @@
+/* Crab design tokens. The single place a value is decided; see design.md.
+   The first block is the Crab site's own set, names unchanged, so the site and
+   existing apps can adopt this file without renaming anything. */
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg: #111111;
+  --surface: rgba(255, 255, 255, .045);      /* code blocks, read-only regions */
+  --surface-hover: rgba(255, 255, 255, .08); /* hovered or selected row */
+  --overlay: rgba(0, 0, 0, .72);             /* behind a dialog */
+
+  /* Text. --faint is the lowest opacity allowed for text (WCAG AA on --bg). */
+  --strong: #ffffff;                  /* headings, values, code */
+  --text: rgba(255, 255, 255, .88);   /* body */
+  --muted: rgba(255, 255, 255, .62);  /* descriptions */
+  --faint: rgba(255, 255, 255, .5);   /* metadata, marks, placeholders */
+
+  /* Rules */
+  --line: rgba(255, 255, 255, .14);        /* table grids, dividers */
+  --line-strong: rgba(255, 255, 255, .36); /* control boundaries: 3:1 on --bg */
+
+  /* Accent: links, actions, current item, selection, focus */
+  --amber: #f5b800;
+  --amber-wash: rgba(245, 184, 0, .14);
+
+  /* Status. Always next to a word; never the only signal. */
+  --ok: #5ecc71;
+  --warn: #ffa359;
+  --danger: #ff678d;
+  --info: #68cdf2;
+
+  /* Code, based on Pierre Dark. Used by .highlights only. */
+  --code-background: var(--surface);
+  --code-foreground: var(--strong);
+  --code-comment: var(--faint);
+  --code-keyword: #ff678d;
+  --code-string: #5ecc71;
+  --code-number: #68cdf2;
+  --code-function: #9d6afb;
+  --code-type: #d568ea;
+  --code-variable: #ffa359;
+  --code-operator: #08c0ef;
+
+  /* Charts. Series colours are the code hues stepped down for filled marks,
+     in a fixed order that keeps neighbours apart for colour-blind readers.
+     Assign in order; never cycle, never reorder. */
+  --chart-1: #ba8b05; /* amber */
+  --chart-2: #37a1c5; /* cyan */
+  --chart-3: #c7701d; /* orange */
+  --chart-4: #cb5ee0; /* magenta */
+  --chart-5: #3dae54; /* green */
+  --chart-6: #9865f5; /* purple */
+  --chart-7: #d6416b; /* pink */
+  --chart-other: #6b6b6b; /* "everything else", de-emphasised series */
+  --chart-grid: var(--line);
+  --chart-axis: var(--line-strong);
+  /* One-hue ramp for magnitude (heatmaps): low to high. Zero uses --surface. */
+  --seq-1: #3c2b00;
+  --seq-2: #5c4301;
+  --seq-3: #7e5d03;
+  --seq-4: #a27907;
+  --seq-5: #c89501;
+
+  /* Type: one family, one size, one line height, two weights */
+  --font: "JetBrains Mono", ui-monospace, monospace;
+  --size: 13px;
+  --lh: 21px;
+
+  /* Space. Vertical space is counted in lines, horizontal space in characters. */
+  --half: calc(var(--lh) / 2);
+  --gap: 2ch;
+
+  /* Layout */
+  --measure: 680px; /* reading column */
+  --wide: 1120px;   /* application content: tables, charts, panes */
+  --nav: 22ch;      /* navigation column */
+  --rail: 24ch;     /* secondary column */
+  --gutter: 6ch;    /* between columns */
+  --pad-x: 40px;
+  --pad-y: 40px;
+
+  /* Controls */
+  --control: calc(var(--lh) * 1.5); /* input and solid button height */
+  --touch: 44px;                    /* minimum target on touch screens */
+
+  /* Layers */
+  --z-sticky: 10;
+  --z-menu: 20;
+  --z-dialog: 30;
+  --z-toast: 40;
+}
+
+/* Breakpoints (media queries cannot read variables):
+   560px  phone: larger text, tighter padding
+   860px  navigation column collapses, touch-sized controls
+   1280px room for a third column */
+@media (max-width: 560px) {
+  :root { --size: 14px; --lh: 22px; --pad-x: 16px; --pad-y: 24px; }
+}

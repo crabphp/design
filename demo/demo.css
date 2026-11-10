@@ -1,0 +1,25 @@
+/* Styles for the demo page only. Nothing here is part of the design system. */
+.demo { margin-bottom: var(--lh); }
+.demo > :last-child:not(.markup) { margin-bottom: 0; }
+.demo-narrow { max-width: var(--measure); }
+.demo-nav { max-width: var(--nav); }
+.demo-form { max-width: 48ch; }
+.demo-select { width: 24ch; }
+.demo-barcol { width: 34%; }
+.demo-numcol { width: 12ch; }
+.demo-flush { margin-top: 0; }
+main > p.muted, main > .lede { max-width: var(--measure); }
+
+.markup { margin: var(--half) 0 0; }
+.markup > summary { color: var(--faint); }
+.markup pre { max-height: calc(var(--lh) * 16); margin: 0; }
+
+.pattern { margin-bottom: var(--lh); padding: var(--lh) 2ch; border: 1px dashed var(--line-strong); }
+.pattern > :last-child { margin-bottom: 0; }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(18ch, 1fr)); gap: var(--lh) 2ch; margin-bottom: var(--lh); }
+.swatch i { display: block; height: calc(var(--lh) * 2); border: 1px solid var(--line); }
+.swatch code { display: block; margin-top: var(--half); }
+.swatch span { display: block; color: var(--faint); overflow-wrap: anywhere; }
+.token-table { max-width: var(--measure); }
+.token-table td:first-child { white-space: nowrap; }
