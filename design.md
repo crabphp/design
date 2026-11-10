@@ -85,7 +85,7 @@ The series colours are the same seven code hues, stepped down in lightness so a 
 --nav: 22ch;      --rail: 24ch;   --gutter: 6ch;
 --pad-x: 40px;    --pad-y: 40px;  /* 16px and 24px below 560px */
 --control: calc(var(--lh) * 1.25);
---touch: 44px;
+--touch: 44px;    /* tap area of a text button on touch screens */
 ```
 
 There is no type scale and no spacing scale. Vertical space is counted in lines (`--lh`, `--half`) and horizontal space in characters (`ch`), which is what keeps every screen on one grid.
@@ -98,7 +98,7 @@ There is no type scale and no spacing scale. Vertical space is counted in lines 
 - A control is 1.25 lines tall. A field (label, a quarter line, control) is 2.5 lines.
 - Table cells have half a line of vertical padding and `2ch` horizontal.
 
-Breakpoints: `560px` (phone type and padding), `860px` (the navigation column becomes a bar; controls reach `--touch`), `1280px` (room for a third column).
+Breakpoints: `560px` (phone type and padding), `860px` (the navigation column becomes a bar; controls grow to 36px), `1280px` (room for a third column).
 
 ## Components
 
@@ -145,7 +145,7 @@ State is carried by ARIA attributes, not extra classes: `aria-current`, `aria-se
 
 - Every page has a skip link to `#main` and exactly one `h1`.
 - Focus is a 2px amber outline, offset 4px (inside controls: on the border).
-- Touch targets are at least 44px below `860px`, and inputs use 16px text there so iOS does not zoom.
+- Below `860px`, text buttons and disclosures have a 44px tap area, inputs and solid buttons are 36px tall, and inputs use 16px text so iOS does not zoom.
 - Tables, code and wide charts scroll inside their own box; the page never scrolls sideways.
 - Motion (smooth scrolling, cursor blink, spinner) only runs under `prefers-reduced-motion: no-preference`.
 - Decorative marks (`#`, `[`, `]`, `>`, `●`) are generated content with empty alternative text, so screen readers skip them.

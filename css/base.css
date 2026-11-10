@@ -253,15 +253,14 @@ dialog > :last-child { margin-bottom: 0; }
   html { scroll-behavior: smooth; }
 }
 
-/* Touch-sized targets, and 16px input text so iOS does not zoom on focus. */
+/* Text buttons get a 44px tap area; --control grows to 36px (tokens.css).
+   Inputs use 16px text so iOS does not zoom on focus. */
 @media (max-width: 860px) {
   button, .button, summary { min-height: var(--touch); }
   summary { display: flex; align-items: center; gap: 1ch; }
-  input, select, textarea { min-height: var(--touch); font-size: 16px; }
-  input, select:not([multiple]) { height: var(--touch); }
+  input, select, textarea { font-size: 16px; }
   input[type="checkbox"], input[type="radio"] { height: auto; min-height: 0; font-size: inherit; }
-  input[type="range"] { height: var(--touch); }
-  input[type="file"]::file-selector-button { height: var(--touch); }
+  input[type="range"] { height: var(--control); }
 }
 @media (max-width: 560px) {
   pre { margin-inline: calc(var(--pad-x) * -1); padding-inline: var(--pad-x); font-size: 13px; }

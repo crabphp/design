@@ -270,6 +270,7 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
   }
   .shell-nav ul { margin-bottom: var(--half); }
   .nav-list a, .site-header a, .pager a, .pagination a { padding: 4px 0; }
+  .solid, .input-group > button { min-height: var(--control); }
   .split { display: block; }
   .split > :last-child { padding-left: 0; border-left: 0; }
   .site-header { margin-bottom: calc(var(--lh) * 2); }
