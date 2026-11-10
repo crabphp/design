@@ -100,9 +100,9 @@
 .block { display: flex; width: 100%; }
 
 /* ── Forms ─────────────────────────────────────────────────────────────── */
-/* Label, control, optional help line. Three lines tall without help. */
+/* Label, control, optional help line. Two and a half lines tall without help. */
 .field { margin-bottom: var(--lh); }
-.field > label { margin-bottom: var(--half); }
+.field > label { margin-bottom: calc(var(--lh) / 4); }
 .field > small, .check small { display: block; }
 .field > small { margin-top: var(--half); }
 .hint { margin-left: 1ch; color: var(--faint); font-weight: 400; }

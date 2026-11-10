@@ -137,8 +137,8 @@ input, select, textarea {
   min-width: 0;
   min-height: var(--control);
   margin: 0;
-  /* One line of text plus half a line of padding makes a control 1.5 lines tall. */
-  padding: calc(var(--lh) / 4 - 1px) 1ch;
+  /* One line of text, centred in the control's height. */
+  padding: calc((var(--control) - var(--lh)) / 2 - 1px) 1ch;
   border: 1px solid var(--line-strong);
   border-radius: 0;
   background: var(--bg);

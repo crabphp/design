@@ -81,7 +81,7 @@
   --pad-y: 40px;
 
   /* Controls */
-  --control: calc(var(--lh) * 1.5); /* input and solid button height */
+  --control: calc(var(--lh) * 1.25); /* input and solid button height */
   --touch: 44px;                    /* minimum target on touch screens */
 
   /* Layers */

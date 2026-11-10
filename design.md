@@ -84,7 +84,7 @@ The series colours are the same seven code hues, stepped down in lightness so a 
 --measure: 680px; --wide: 1120px;
 --nav: 22ch;      --rail: 24ch;   --gutter: 6ch;
 --pad-x: 40px;    --pad-y: 40px;  /* 16px and 24px below 560px */
---control: calc(var(--lh) * 1.5);
+--control: calc(var(--lh) * 1.25);
 --touch: 44px;
 ```
 
@@ -95,7 +95,7 @@ There is no type scale and no spacing scale. Vertical space is counted in lines 
 - `1 × --lh` after paragraphs, lists, code blocks, tables, fields and components.
 - `2 × --lh` before `##` and deeper headings.
 - `3 × --lh` between page sections and under the header.
-- A control is 1.5 lines tall. A field (label, half a line, control) is 3 lines.
+- A control is 1.25 lines tall. A field (label, a quarter line, control) is 2.5 lines.
 - Table cells have half a line of vertical padding and `2ch` horizontal.
 
 Breakpoints: `560px` (phone type and padding), `860px` (the navigation column becomes a bar; controls reach `--touch`), `1280px` (room for a third column).
