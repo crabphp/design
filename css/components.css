@@ -75,6 +75,17 @@
 .segmented > button { color: var(--muted); }
 .segmented > [aria-pressed="true"] { color: var(--amber); font-weight: 700; }
 
+/* Joined buttons in one bordered strip: a choice of one (aria-pressed),
+   or a few related actions side by side. */
+.button-group { display: inline-flex; vertical-align: top; }
+.button-group > button, .button-group > .button { min-height: var(--control); padding: 0 1ch; border: 1px solid var(--line-strong); color: var(--muted); }
+.button-group > * + * { margin-left: -1px; }
+.button-group > ::before, .button-group > ::after { content: none; }
+.button-group > :not([aria-pressed="true"]):hover:not(:disabled) { position: relative; background: var(--surface-hover); color: var(--strong); text-decoration: none; }
+.button-group > [aria-pressed="true"] { position: relative; z-index: 1; border-color: var(--amber); background: var(--amber-wash); color: var(--amber); font-weight: 700; }
+.button-group > :focus-visible { position: relative; z-index: 2; outline-offset: 0; }
+.button-group > :disabled { color: var(--faint); }
+
 .breadcrumb ol { display: flex; flex-wrap: wrap; margin: 0 0 var(--lh); padding: 0; list-style: none; color: var(--faint); }
 .breadcrumb li + li::before { content: "/"; content: "/" / ""; margin-inline: 1ch; }
 .breadcrumb [aria-current] { color: var(--muted); }
@@ -158,9 +169,9 @@ td .check { display: inline-flex; }
 .stat dt { color: var(--faint); }
 .stat dd { margin: 0; color: var(--strong); font-weight: 700; }
 .delta { color: var(--muted); font-variant-numeric: tabular-nums; }
-.delta::before { content: "= "; color: var(--faint); }
-.delta.up::before { content: "▲ "; color: var(--ok); }
-.delta.down::before { content: "▼ "; color: var(--danger); }
+.delta::before { content: "= "; content: "= " / "unchanged "; color: var(--faint); }
+.delta.up::before { content: "▲ "; content: "▲ " / "up "; color: var(--ok); }
+.delta.down::before { content: "▼ "; content: "▼ " / "down "; color: var(--danger); }
 .delta.up.invert::before { color: var(--danger); }
 .delta.down.invert::before { color: var(--ok); }
 
@@ -213,7 +224,9 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
 .spinner { display: inline-block; width: 1ch; height: var(--lh); overflow: hidden; color: var(--amber); white-space: pre; vertical-align: top; }
 .spinner::before { content: "~"; display: inline-block; }
 
-/* Wrap the target: <span data-tip="Copy to clipboard"><button>Copy</button></span> */
+/* Wrap the target: <span data-tip="Copy to clipboard"><button>Copy</button></span>
+   A hint only: screen readers do not reliably read it and Escape cannot close it,
+   so the target must have its own accessible name. */
 [data-tip] { position: relative; display: inline-flex; }
 [data-tip]:hover::after, [data-tip]:focus-within::after {
   content: attr(data-tip);
@@ -231,6 +244,11 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
 /* Menu: <button popovertarget="m">Actions</button> <div id="m" popover class="menu">…</div> */
 .menu { margin: 0; padding: var(--half) 0; border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); min-width: 22ch; }
 .menu[popover] { inset: auto; position-area: bottom span-right; position-try-fallbacks: flip-block, flip-inline; }
+/* Without anchor positioning the menu opens centred, like a dialog. */
+@supports not (position-area: bottom) {
+  .menu[popover] { inset: 0; margin: auto; height: fit-content; }
+  .menu[popover]::backdrop { background: var(--overlay); }
+}
 .menu > a, .menu > button { display: flex; justify-content: flex-start; width: 100%; min-height: var(--control); padding: 0 2ch; color: var(--text); }
 .menu > a { align-items: center; }
 .menu > button::before, .menu > button::after { content: none; }
@@ -247,6 +265,12 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
 }
 @keyframes crab-blink { 50% { opacity: 0; } }
 @keyframes crab-spin { to { transform: translateX(-4ch); } }
+
+/* ── Touch ─────────────────────────────────────────────────────────────── */
+@media (max-width: 860px), (pointer: coarse) {
+  .nav-list a, .site-header a, .pager a, .pagination a { padding: 4px 0; }
+  .solid, .input-group > button { min-height: var(--control); }
+}
 
 /* ── Small screens ─────────────────────────────────────────────────────── */
 /* The navigation column becomes a bar at the top that opens into a menu.
@@ -269,8 +293,6 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
     padding-bottom: var(--lh);
   }
   .shell-nav ul { margin-bottom: var(--half); }
-  .nav-list a, .site-header a, .pager a, .pagination a { padding: 4px 0; }
-  .solid, .input-group > button { min-height: var(--control); }
   .split { display: block; }
   .split > :last-child { padding-left: 0; border-left: 0; }
   .site-header { margin-bottom: calc(var(--lh) * 2); }

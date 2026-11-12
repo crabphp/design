@@ -1,66 +1,75 @@
 /* Crab design tokens. The single place a value is decided; see design.md.
    The first block is the Crab site's own set, names unchanged, so the site and
-   existing apps can adopt this file without renaming anything. */
+   existing apps can adopt this file without renaming anything.
+
+   Themes. Dark is the default. Every colour is light-dark(light, dark), so the
+   theme follows color-scheme, set by data-theme on <html> or any subtree:
+     data-theme="light"  light
+     data-theme="dark"   dark (the default; use it to force dark inside light)
+     data-theme="auto"   follows the reader's system setting */
 :root {
   color-scheme: dark;
 
   /* Surfaces */
-  --bg: #111111;
-  --surface: rgba(255, 255, 255, .045);      /* code blocks, read-only regions */
-  --surface-hover: rgba(255, 255, 255, .08); /* hovered or selected row */
-  --overlay: rgba(0, 0, 0, .72);             /* behind a dialog */
+  --bg: light-dark(#fbfbf9, #111111);
+  --surface: light-dark(rgba(0, 0, 0, .045), rgba(255, 255, 255, .045));      /* code blocks, read-only regions */
+  --surface-hover: light-dark(rgba(0, 0, 0, .08), rgba(255, 255, 255, .08)); /* hovered or selected row */
+  --overlay: light-dark(rgba(0, 0, 0, .4), rgba(0, 0, 0, .72));             /* behind a dialog */
 
   /* Text. --faint is the lowest opacity allowed for text (WCAG AA on --bg). */
-  --strong: #ffffff;                  /* headings, values, code */
-  --text: rgba(255, 255, 255, .88);   /* body */
-  --muted: rgba(255, 255, 255, .62);  /* descriptions */
-  --faint: rgba(255, 255, 255, .5);   /* metadata, marks, placeholders */
+  --strong: light-dark(#111111, #ffffff);                       /* headings, values, code */
+  --text: light-dark(rgba(17, 17, 17, .88), rgba(255, 255, 255, .88));  /* body */
+  --muted: light-dark(rgba(17, 17, 17, .7), rgba(255, 255, 255, .62));  /* descriptions */
+  --faint: light-dark(rgba(17, 17, 17, .6), rgba(255, 255, 255, .5));   /* metadata, marks, placeholders */
 
   /* Rules */
-  --line: rgba(255, 255, 255, .14);        /* table grids, dividers */
-  --line-strong: rgba(255, 255, 255, .36); /* control boundaries: 3:1 on --bg */
+  --line: light-dark(rgba(17, 17, 17, .14), rgba(255, 255, 255, .14));        /* table grids, dividers */
+  --line-strong: light-dark(rgba(17, 17, 17, .46), rgba(255, 255, 255, .36)); /* control boundaries: 3:1 on --bg */
 
   /* Accent: links, actions, current item, selection, focus */
-  --amber: #f5b800;
-  --amber-wash: rgba(245, 184, 0, .14);
+  --amber: light-dark(#8f6500, #f5b800);
+  --amber-wash: light-dark(rgba(143, 101, 0, .14), rgba(245, 184, 0, .14));
 
   /* Status. Always next to a word; never the only signal. */
-  --ok: #5ecc71;
-  --warn: #ffa359;
-  --danger: #ff678d;
-  --info: #68cdf2;
+  --ok: light-dark(#1d7a35, #5ecc71);
+  --warn: light-dark(#a85400, #ffa359);
+  --danger: light-dark(#c22350, #ff678d);
+  --info: light-dark(#0c6e96, #68cdf2);
 
-  /* Code, based on Pierre Dark. Used by .highlights only. */
+  /* Code, based on Pierre Dark (dark) and darkened to AA (light). Used by .highlights only. */
   --code-background: var(--surface);
   --code-foreground: var(--strong);
   --code-comment: var(--faint);
-  --code-keyword: #ff678d;
-  --code-string: #5ecc71;
-  --code-number: #68cdf2;
-  --code-function: #9d6afb;
-  --code-type: #d568ea;
-  --code-variable: #ffa359;
-  --code-operator: #08c0ef;
+  --code-keyword: light-dark(#c22350, #ff678d);
+  --code-string: light-dark(#1d7a35, #5ecc71);
+  --code-number: light-dark(#0c6e96, #68cdf2);
+  --code-function: light-dark(#6e3fd6, #9d6afb);
+  --code-type: light-dark(#9a2fb3, #d568ea);
+  --code-variable: light-dark(#a85400, #ffa359);
+  --code-operator: light-dark(#00789c, #08c0ef);
 
-  /* Charts. Series colours are the code hues stepped down for filled marks,
+  /* Charts. Series colours are the code hues set for filled marks on each page,
      in a fixed order that keeps neighbours apart for colour-blind readers.
      Assign in order; never cycle, never reorder. */
-  --chart-1: #ba8b05; /* amber */
-  --chart-2: #37a1c5; /* cyan */
-  --chart-3: #c7701d; /* orange */
-  --chart-4: #cb5ee0; /* magenta */
-  --chart-5: #3dae54; /* green */
-  --chart-6: #9865f5; /* purple */
-  --chart-7: #d6416b; /* pink */
-  --chart-other: #6b6b6b; /* "everything else", de-emphasised series */
+  --chart-1: light-dark(#a87b00, #ba8b05); /* amber */
+  --chart-2: light-dark(#1f8db5, #37a1c5); /* cyan */
+  --chart-3: light-dark(#c4600f, #c7701d); /* orange */
+  --chart-4: light-dark(#b347cc, #cb5ee0); /* magenta */
+  --chart-5: light-dark(#2e9446, #3dae54); /* green */
+  --chart-6: light-dark(#7f4fe6, #9865f5); /* purple */
+  --chart-7: light-dark(#d12e5f, #d6416b); /* pink */
+  --chart-other: light-dark(#8a8a8a, #6b6b6b); /* "everything else", de-emphasised series */
   --chart-grid: var(--line);
   --chart-axis: var(--line-strong);
   /* One-hue ramp for magnitude (heatmaps): low to high. Zero uses --surface. */
-  --seq-1: #3c2b00;
-  --seq-2: #5c4301;
-  --seq-3: #7e5d03;
-  --seq-4: #a27907;
-  --seq-5: #c89501;
+  --seq-1: light-dark(#f3e3b0, #3c2b00);
+  --seq-2: light-dark(#e6c766, #5c4301);
+  --seq-3: light-dark(#cfa224, #7e5d03);
+  --seq-4: light-dark(#a87b00, #a27907);
+  --seq-5: light-dark(#6e5000, #c89501);
+
+  /* Native icons (date picker) are drawn black; the dark theme inverts them. */
+  --icon-invert: 1;
 
   /* Type: one family, one size, one line height, two weights */
   --font: "JetBrains Mono", ui-monospace, monospace;
@@ -91,11 +100,19 @@
   --z-toast: 40;
 }
 
+[data-theme="dark"] { color-scheme: dark; --icon-invert: 1; }
+[data-theme="light"] { color-scheme: light; --icon-invert: 0; }
+[data-theme="auto"] { color-scheme: light dark; --icon-invert: 1; }
+@media (prefers-color-scheme: light) {
+  [data-theme="auto"] { --icon-invert: 0; }
+}
+
 /* Breakpoints (media queries cannot read variables):
    560px  phone: larger text, tighter padding
-   860px  navigation column collapses, larger controls for touch
-   1280px room for a third column */
-@media (max-width: 860px) {
+   860px  navigation column collapses
+   1280px room for a third column
+   Touch sizing applies below 860px and on any coarse pointer (tablets, touch laptops). */
+@media (max-width: 860px), (pointer: coarse) {
   :root { --control: 36px; }
 }
 @media (max-width: 560px) {

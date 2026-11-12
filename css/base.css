@@ -157,9 +157,11 @@ textarea { min-height: calc(var(--lh) * 4); resize: vertical; }
 
 select {
   padding-right: 4ch;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0h10L5 6z' fill='%23ffffff' fill-opacity='.5'/%3E%3C/svg%3E");
+  /* A down-pointing triangle in --faint, drawn from two halves so it follows the theme. */
+  background-image: linear-gradient(45deg, transparent 50%, var(--faint) 50%), linear-gradient(135deg, var(--faint) 50%, transparent 50%);
+  background-size: 5px 5px;
   background-repeat: no-repeat;
-  background-position: right 1.5ch center;
+  background-position: right calc(1.5ch + 5px) center, right 1.5ch center;
   cursor: pointer;
 }
 select[multiple] { padding-right: 1ch; background-image: none; }
@@ -212,7 +214,7 @@ input[type="file"]::file-selector-button {
 }
 input[type="search"]::-webkit-search-cancel-button { appearance: none; }
 input[type="color"] { width: 6ch; padding: 2px; cursor: pointer; }
-::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .5; cursor: pointer; }
+::-webkit-calendar-picker-indicator { filter: invert(var(--icon-invert)); opacity: .5; cursor: pointer; }
 
 progress, meter {
   display: block;
@@ -253,9 +255,9 @@ dialog > :last-child { margin-bottom: 0; }
   html { scroll-behavior: smooth; }
 }
 
-/* Text buttons get a 44px tap area; --control grows to 36px (tokens.css).
+/* Touch: text buttons get a 44px tap area; --control grows to 36px (tokens.css).
    Inputs use 16px text so iOS does not zoom on focus. */
-@media (max-width: 860px) {
+@media (max-width: 860px), (pointer: coarse) {
   button, .button, summary { min-height: var(--touch); }
   summary { display: flex; align-items: center; gap: 1ch; }
   input, select, textarea { font-size: 16px; }

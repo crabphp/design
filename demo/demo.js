@@ -2,10 +2,36 @@
 // and the few lines of script the interactive examples need.
 import { columns, heatmap, line, segments, spark } from '../js/charts.js';
 
-const styles = getComputedStyle(document.documentElement);
-const token = (name) => styles.getPropertyValue(name).trim();
+const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+// Theme switch. The choice is kept for the next visit.
+const root = document.documentElement;
+function setTheme(choice) {
+  root.dataset.theme = choice;
+  for (const button of document.querySelectorAll('[data-theme-choice]')) button.setAttribute('aria-pressed', String(button.dataset.themeChoice === choice));
+  try { localStorage.setItem('crab-theme', choice); } catch {}
+  showSwatchValues();
+}
+document.addEventListener('click', (event) => {
+  const choice = event.target.closest('[data-theme-choice]');
+  if (choice) setTheme(choice.dataset.themeChoice);
+});
+matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => showSwatchValues());
+
+// A colour token holds light-dark(…); the probe resolves it for the current theme.
+const probe = document.createElement('i');
+probe.hidden = true;
+document.body.append(probe);
+const resolved = (name) => {
+  probe.style.color = `var(${name})`;
+  const value = getComputedStyle(probe).color;
+  const [r, g, b, a] = value.match(/[\d.]+/g)?.map(Number) ?? [];
+  if (a === undefined && b !== undefined) return `#${[r, g, b].map((n) => n.toString(16).padStart(2, '0')).join('')}`;
+  return value;
+};
 
 // Token values are read from the stylesheet, so this page cannot drift from it.
+const swatchValues = [];
 for (const group of document.querySelectorAll('[data-swatches]')) {
   for (const name of group.dataset.swatches.split(' ')) {
     const item = document.createElement('div');
@@ -15,12 +41,18 @@ for (const group of document.querySelectorAll('[data-swatches]')) {
     const label = document.createElement('code');
     label.textContent = name;
     const value = document.createElement('span');
-    value.textContent = token(name);
+    swatchValues.push([name, value]);
     item.append(chip, label, value);
     group.append(item);
   }
 }
+function showSwatchValues() {
+  for (const [name, value] of swatchValues) value.textContent = resolved(name);
+}
 for (const cell of document.querySelectorAll('[data-token]')) cell.textContent = token(cell.dataset.token);
+let saved = 'dark';
+try { saved = localStorage.getItem('crab-theme') ?? 'dark'; } catch {}
+setTheme(saved);
 
 // "Markup" under each example, taken from the page itself before scripts change it.
 function dedent(source) {
@@ -94,7 +126,7 @@ document.addEventListener('click', (event) => {
   const opener = event.target.closest('[data-dialog]');
   if (opener) document.getElementById(opener.dataset.dialog).showModal();
 
-  const pressed = event.target.closest('.segmented > button');
+  const pressed = event.target.closest('.segmented > button, .button-group > [aria-pressed]');
   if (pressed) for (const button of pressed.parentElement.children) button.setAttribute('aria-pressed', String(button === pressed));
 
   const tab = event.target.closest('[role="tab"]');

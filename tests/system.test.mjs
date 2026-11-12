@@ -22,10 +22,25 @@ test('every variable in use is defined in tokens.css', () => {
 
 test('colours live in tokens.css only', () => {
   for (const [name, css] of Object.entries(layers)) {
-    // The select arrow is an inline SVG, which cannot read a variable.
-    const body = withoutComments(css).replace(/url\("data:[^"]*"\)/g, '');
-    const raw = body.match(/#[0-9a-f]{3,8}\b|rgba?\(/gi) ?? [];
+    const raw = withoutComments(css).match(/#[0-9a-f]{3,8}\b|rgba?\(/gi) ?? [];
     assert.deepEqual(raw, [], `${name} holds a raw colour`);
+  }
+});
+
+test('every colour token has a light and a dark value', () => {
+  const root = withoutComments(tokens).match(/:root\s*\{([\s\S]*?)\n\}/)[1];
+  for (const [, name, value] of root.matchAll(/(--[\w-]+):\s*([^;]+);/g)) {
+    if (!/#|rgba?\(/.test(value)) continue;
+    assert.match(value, /^light-dark\(/, `${name} has one value; give it light-dark(light, dark)`);
+  }
+});
+
+test('nothing outside tokens.css assumes a dark page', () => {
+  for (const [name, css] of Object.entries(layers)) {
+    const body = withoutComments(css);
+    assert.doesNotMatch(body, /url\("data:/, `${name} draws an image that cannot follow the theme`);
+    assert.doesNotMatch(body, /invert\(\s*[\d.]/, `${name} inverts by a fixed amount; use --icon-invert`);
+    assert.doesNotMatch(body, /color-scheme/, `${name} sets color-scheme; only tokens.css does`);
   }
 });
 
@@ -37,7 +52,9 @@ test('the site tokens keep their names and values', () => {
   };
   for (const [name, value] of Object.entries(site)) {
     const found = tokens.match(new RegExp(`${name}:\\s*([^;]+);`))?.[1].trim();
-    assert.equal(found, value, name);
+    // The site is dark: compare the dark half of light-dark(light, dark).
+    const dark = found?.match(/^light-dark\((?:rgba\([^)]*\)|[^,]+),\s*(.+)\)$/)?.[1] ?? found;
+    assert.equal(dark, value, name);
   }
 });
 
@@ -48,6 +65,17 @@ test('every class on the demo page exists in a stylesheet', () => {
   const hooks = new Set(['demo-form', 'demo']);
   const used = new Set([...read('index.html').matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1].split(/\s+/)));
   for (const name of used) assert.ok(known.has(name) || hooks.has(name), `index.html uses .${name}, which no stylesheet defines`);
+});
+
+test('every class charts.js adds exists in a stylesheet', () => {
+  const css = withoutComments(Object.values(layers).join('\n'));
+  const known = new Set([...css.matchAll(/\.(-?[a-zA-Z_][\w-]*)/g)].map((m) => m[1]));
+  const source = read('js/charts.js');
+  const literals = [
+    ...source.matchAll(/class(?:Name)?:\s*[`'"]([^`'"]+)/g),
+    ...source.matchAll(/classList\.(?:add|toggle|remove)\('([\w-]+)'/g),
+  ].flatMap((m) => m[1].split(/\s+/)).filter((name) => /^[a-z][\w-]*$/i.test(name));
+  for (const name of new Set(literals)) assert.ok(known.has(name), `charts.js adds .${name}, which no stylesheet defines`);
 });
 
 test('chart helpers', async () => {

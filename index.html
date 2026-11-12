@@ -20,6 +20,11 @@
       <a href="css/components.css">components.css</a>
       <a href="css/charts.css">charts.css</a>
       <a href="design.md">design.md</a>
+      <span class="button-group" role="group" aria-label="Theme" id="theme">
+        <button type="button" data-theme-choice="dark" aria-pressed="true">Dark</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-choice="auto" aria-pressed="false">System</button>
+      </span>
     </nav>
   </header>
 
@@ -36,6 +41,7 @@
       <ul>
         <li><a href="#buttons">Buttons</a></li>
         <li><a href="#segmented">Segmented</a></li>
+        <li><a href="#button-group">Button group</a></li>
         <li><a href="#menu">Menu</a></li>
       </ul>
       <p>Forms</p>
@@ -91,12 +97,12 @@
 
   <main class="shell-main" id="main">
     <h1>Crab design system<span class="cursor" aria-hidden="true">█</span></h1>
-    <p class="lede">Tokens, components and charts for CrabPHP applications. It looks like the Crab site: one typeface, one size, a dark page, amber for what you can act on. Everything here is plain HTML and CSS; copy the markup under any example.</p>
+    <p class="lede">Tokens, components and charts for CrabPHP applications. It looks like the Crab site: one typeface, one size, a dark page (or a light one), amber for what you can act on. Everything here is plain HTML and CSS; copy the markup under any example.</p>
     <pre><code>&lt;link rel="stylesheet" href="css/crab.css"&gt;</code></pre>
 
     <!-- ═══ Foundations ═══ -->
     <h2 id="colour">Colour</h2>
-    <p class="muted">Every colour is a token in <code>tokens.css</code>. White carries text at four strengths, amber marks what you can act on, and four status colours always sit beside a word.</p>
+    <p class="muted">Every colour is a token in <code>tokens.css</code>. The text colour comes in four strengths, amber marks what you can act on, and four status colours always sit beside a word.</p>
     <div class="swatches" data-swatches="--bg --surface --surface-hover --line --line-strong"></div>
     <div class="swatches" data-swatches="--strong --text --muted --faint"></div>
     <div class="swatches" data-swatches="--amber --amber-wash --ok --warn --danger --info"></div>
@@ -124,10 +130,10 @@
     <p class="muted">Plain HTML needs no classes. Headings are uppercase and bold at body size, marked like Markdown.</p>
     <div class="demo">
       <h3>A third-level heading</h3>
-      <p>Body text at 88% white with a <a href="#text">link in amber</a>, <strong>strong text in full white</strong>, <code>inline code</code>, <mark>a highlight</mark> and a key such as <kbd>Ctrl</kbd> <kbd>K</kbd>.</p>
+      <p>Body text at 88% strength with a <a href="#text">link in amber</a>, <strong>strong text at full strength</strong>, <code>inline code</code>, <mark>a highlight</mark> and a key such as <kbd>Ctrl</kbd> <kbd>K</kbd>.</p>
       <ul>
         <li>Lists use a dash</li>
-        <li>in faint white</li>
+        <li>in faint text</li>
       </ul>
       <ol>
         <li>Numbered steps</li>
@@ -165,6 +171,22 @@
         <button type="button" aria-pressed="true">7 days</button>
         <button type="button" aria-pressed="false">30 days</button>
         <button type="button" aria-pressed="false">12 months</button>
+      </div>
+    </div>
+
+    <h2 id="button-group">Button group</h2>
+    <p class="muted">Joined buttons in one strip. For a choice of one, each button carries <code>aria-pressed</code>; for related actions, leave it off.</p>
+    <div class="demo">
+      <div class="toolbar">
+        <div class="button-group" role="group" aria-label="Theme">
+          <button type="button" aria-pressed="true">Dark</button>
+          <button type="button" aria-pressed="false">Light</button>
+          <button type="button" aria-pressed="false">System</button>
+        </div>
+        <div class="button-group" role="group" aria-label="Page">
+          <button type="button" disabled>Previous</button>
+          <button type="button">Next</button>
+        </div>
       </div>
     </div>
 

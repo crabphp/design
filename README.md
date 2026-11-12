@@ -1,6 +1,6 @@
 # Crab design system
 
-Design tokens, components and charts for CrabPHP applications. It carries the look of the Crab site into application UI: one typeface, one size, a dark page, amber for what you can act on.
+Design tokens, components and charts for CrabPHP applications. It carries the look of the Crab site into application UI: one typeface, one size, a dark page (or a light one), amber for what you can act on.
 
 It is plain CSS on semantic HTML. There is no build step and no dependency, so the same markup works in a React dashboard, an Arc template or a static page.
 
@@ -34,6 +34,12 @@ With a bundler:
 ```js
 import '@crabphp/design';                       // css/crab.css
 import { line, columns } from '@crabphp/design/charts.js';
+```
+
+Dark is the default. For light, or to follow the reader's system setting:
+
+```html
+<html data-theme="light">   <!-- or "auto"; "dark" forces dark inside a light page -->
 ```
 
 Keep `fonts/` next to `css/`: `base.css` loads JetBrains Mono from `../fonts/`.

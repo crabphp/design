@@ -175,6 +175,8 @@ const charWidthOf = (node) => parseFloat(getComputedStyle(node).fontSize) * .6;
  * options: { labels, series: [{ name, values, color? }], height?, area?, format?, name? }
  */
 export function line(root, { labels = [], series = [], height = 231, area = false, format = formatNumber, name = 'Line chart' } = {}) {
+  // Every series gets one value per label; a missing value is drawn as zero.
+  series = series.map((s) => ({ ...s, values: labels.map((_, i) => s.values[i] ?? 0) }));
   return mount(root, {
     labels, series, legend: 'stroke', format,
     draw({ plot, tip, width }) {
@@ -338,7 +340,7 @@ export function heatmap(root, { rows = [], cols = [], values = [], format = form
 export function segments(root, parts = [], { format = formatNumber } = {}) {
   root.querySelectorAll(':scope > .segments, :scope > .legend').forEach((n) => n.remove());
   const total = parts.reduce((sum, part) => sum + part.value, 0);
-  const share = (part) => `${Math.round((part.value / total) * 100)}%`;
+  const share = (part) => `${total > 0 ? Math.round((part.value / total) * 100) : 0}%`;
   const bar = html('div', { className: 'segments' }, root);
   bar.setAttribute('role', 'img');
   bar.setAttribute('aria-label', parts.map((part) => `${part.name} ${share(part)}`).join(', '));

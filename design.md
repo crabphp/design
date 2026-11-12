@@ -7,7 +7,7 @@ It grew out of the Crab site's `design.md`. The site reads like a plain text fil
 ## Direction
 
 - One typeface (JetBrains Mono), one size, one line height, two weights.
-- Dark page, white text at four strengths, amber for what you can act on.
+- A dark page by default (a light theme is available), text at four strengths, amber for what you can act on.
 - Headings are uppercase bold at body size, prefixed with `#`, `##`, `###`.
 - Square corners. No shadows, gradients, icons or images. Hierarchy comes from words, weight, whitespace and thin rules.
 - Meaning is always in words. Colour helps you scan; it never carries a state on its own.
@@ -24,9 +24,31 @@ It grew out of the Crab site's `design.md`. The site reads like a plain text fil
 | `css/crab.css` | Imports all four | |
 | `js/charts.js` | Optional SVG chart renderers | charts.css |
 
+## Themes
+
+Dark is the default and the site's look. A light theme is chosen with `data-theme` on `<html>` or on any subtree:
+
+| Attribute | Theme |
+|---|---|
+| none, or `data-theme="dark"` | dark |
+| `data-theme="light"` | light |
+| `data-theme="auto"` | follows `prefers-color-scheme` |
+
+Every colour token is written `light-dark(light, dark)` and resolves through `color-scheme`, which the attribute sets. Components never know which theme is on. The only token that is not a colour is `--icon-invert`, which tells native icons (the date picker) whether to invert.
+
+The light values are not a mechanical flip. Each one was chosen and measured on `#fbfbf9`:
+
+- Text alphas are raised (`--muted` .7, `--faint` .6) so `--faint` still reaches AA (4.9:1). `--line-strong` is .46 to keep 3:1.
+- `--amber` becomes `#8f6500`. The dark amber would be 1.6:1 on a light page; this one is 5:1 as text and as the background of a `.solid` button.
+- Status and code colours are darker versions of the same hues, each at least 4.8:1.
+- Series colours keep their hues and order, darkened to at least 3.6:1. Under protanopia and deuteranopia, neighbours stay as far apart as in the dark palette.
+- `--seq-*` runs from pale to dark, so "more" is still the stronger mark.
+
 ## Tokens
 
-The first eleven names are the site's own and keep their values, so the site and existing apps can adopt `tokens.css` without renaming anything.
+Values below are the dark theme's; the light value is the first argument of each `light-dark()` in `tokens.css`.
+
+The first eleven names are the site's own and keep their (dark) values, so the site and existing apps can adopt `tokens.css` without renaming anything.
 
 ### Colour
 
@@ -98,7 +120,7 @@ There is no type scale and no spacing scale. Vertical space is counted in lines 
 - A control is 1.25 lines tall. A field (label, a quarter line, control) is 2.5 lines.
 - Table cells have half a line of vertical padding and `2ch` horizontal.
 
-Breakpoints: `560px` (phone type and padding), `860px` (the navigation column becomes a bar; controls grow to 36px), `1280px` (room for a third column).
+Breakpoints: `560px` (phone type and padding), `860px` (the navigation column becomes a bar), `1280px` (room for a third column). Touch sizing (36px controls, 44px tap areas, 16px input text) applies below `860px` and on any coarse pointer, so a tablet in landscape or a touch laptop gets it too.
 
 ## Components
 
@@ -106,9 +128,9 @@ The page `index.html` shows each one with its markup. In short:
 
 **Layout** `.page` (one column, `.wide` for applications) · `.shell` with `.shell-nav` and `.shell-main` (navigation column plus content) · `.split` (list beside detail) · `.cols` (equal columns that wrap) · `.toolbar` · `.actions` · `.site-header` · `.wordmark` · `.site-footer`
 
-**Navigation** `.nav-list` · `.tabs` · `.segmented` · `.breadcrumb` · `.pagination` · `.pager`
+**Navigation** `.nav-list` · `.tabs` · `.segmented` · `.button-group` · `.breadcrumb` · `.pagination` · `.pager`
 
-**Actions** `button` and `.button` are bracketed amber text. Modifiers: `.solid` (the one main action of a view), `.quiet` (secondary), `.danger` (destructive), `.block` (full width). `.menu` is a native popover.
+**Actions** `button` and `.button` are bracketed amber text. Modifiers: `.solid` (the one main action of a view), `.quiet` (secondary), `.danger` (destructive), `.block` (full width). `.button-group` joins buttons into one bordered strip: a choice of one with `aria-pressed` (the theme switch), or a few related actions. `.menu` is a native popover, anchored below its button; where anchor positioning is not supported it opens centred.
 
 **Forms** `.field` with `label`, a control and optional `small` help · `.hint` · `.error` with `aria-invalid="true"` · `.check` for a checkbox, radio or switch with its label · `.input-group` and `.addon` · `.form-grid` · `.chips` and `.chip`. Checkboxes, radios and switches (`role="switch"`) are drawn as text: `[x]`, `(*)`, `[ on]`.
 
@@ -145,10 +167,12 @@ State is carried by ARIA attributes, not extra classes: `aria-current`, `aria-se
 
 - Every page has a skip link to `#main` and exactly one `h1`.
 - Focus is a 2px amber outline, offset 4px (inside controls: on the border).
-- Below `860px`, text buttons and disclosures have a 44px tap area, inputs and solid buttons are 36px tall, and inputs use 16px text so iOS does not zoom.
+- Below `860px` and on coarse pointers, text buttons and disclosures have a 44px tap area, inputs and solid buttons are 36px tall, and inputs use 16px text so iOS does not zoom.
 - Tables, code and wide charts scroll inside their own box; the page never scrolls sideways.
 - Motion (smooth scrolling, cursor blink, spinner) only runs under `prefers-reduced-motion: no-preference`.
-- Decorative marks (`#`, `[`, `]`, `>`, `●`) are generated content with empty alternative text, so screen readers skip them.
+- Decorative marks (`#`, `[`, `]`, `>`, `●`) are generated content with empty alternative text, so screen readers skip them. Marks that carry meaning get words instead: a `.delta` is read as "up", "down" or "unchanged".
+- `[data-tip]` is a hint, not a label: screen readers do not reliably read it and Escape cannot close it. The target must have its own accessible name.
+- Every theme meets the same contrast: `--faint` at least 4.5:1, control boundaries and chart marks at least 3:1.
 
 ## Content voice
 
@@ -158,11 +182,11 @@ Direct, calm and specific. Short sentences. Say what happened and what to do nex
 
 - Update this document before adding a colour, a size or a layout pattern.
 - A new token goes in `tokens.css` and nowhere else; components never hold a raw colour.
+- A new colour token needs both values, `light-dark(light, dark)`, each measured on its own page.
 - A new series colour or a reordered palette must be measured for colour-blind separation before it ships.
-- `npm test` checks that every variable used is defined and that every class on the demo page exists.
+- `npm test` checks that every variable used is defined, every colour has both themes, nothing outside `tokens.css` assumes a dark page, and every class on the demo page or added by `charts.js` exists.
 
 ## Not here yet
 
-- A light theme. Components only use tokens, so one can be added in `tokens.css`, but each colour has to be chosen and checked again for a light page.
 - Cua, the site's mascot, and the docs layout (`.docs`, `.toc`) stay in the site's stylesheet.
 - React or Arc wrappers. The markup is plain HTML, so both can use the classes directly.
