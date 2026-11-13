@@ -57,11 +57,20 @@
 .site-footer { margin-top: calc(var(--lh) * 4); color: var(--faint); }
 
 /* ── Navigation ────────────────────────────────────────────────────────── */
-.nav-list p { margin: 0; color: var(--faint); }
+/* A column of links in groups. The marker column is always reserved, so the
+   current item's ">" never shifts its text; labels end in "…" when too long. */
+.nav-list p { margin: 0; padding-left: 2ch; color: var(--faint); }
 .nav-list ul { list-style: none; padding: 0; }
-.nav-list a { display: flex; justify-content: space-between; gap: 1ch; color: var(--muted); }
-.nav-list a:hover, .nav-list a[aria-current] { color: var(--amber); text-decoration: none; }
-.nav-list a[aria-current] > :first-child::before, .nav-list a[aria-current]:not(:has(*))::before { content: "> "; content: "> " / ""; }
+.nav-list ul ul { margin: 0; padding-left: 2ch; }
+.nav-list a { display: grid; grid-template-columns: 2ch minmax(0, 1fr) auto; color: var(--muted); }
+.nav-list a > :nth-child(2) { margin-left: 1ch; }
+.nav-list a::before { content: ""; color: var(--faint); }
+.nav-list a > :first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-list a:hover { color: var(--strong); text-decoration: none; }
+.nav-list a:hover::before { content: ">"; content: ">" / ""; }
+.nav-list a[aria-current] { color: var(--amber); font-weight: 700; }
+.nav-list a[aria-current]::before { content: ">"; content: ">" / ""; color: var(--amber); }
+.nav-list a[aria-current] .count { font-weight: 400; }
 .count { color: var(--faint); font-variant-numeric: tabular-nums; }
 
 .tabs { display: flex; flex-wrap: wrap; gap: 0 3ch; margin-bottom: var(--lh); border-bottom: 1px solid var(--line); }
