@@ -175,7 +175,7 @@ td .check { display: inline-flex; }
 .delta.up.invert::before { color: var(--danger); }
 .delta.down.invert::before { color: var(--ok); }
 
-/* State as a word with a coloured mark in front of it. */
+/* State as a word with a colored mark in front of it. */
 .badge { color: var(--text); white-space: nowrap; }
 .badge::before { content: "● "; content: "● " / ""; color: var(--faint); }
 .badge.ok::before { color: var(--ok); }
@@ -244,7 +244,7 @@ a.row:hover, button.row:hover { background: var(--surface-hover); text-decoratio
 /* Menu: <button popovertarget="m">Actions</button> <div id="m" popover class="menu">…</div> */
 .menu { margin: 0; padding: var(--half) 0; border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); min-width: 22ch; }
 .menu[popover] { inset: auto; position-area: bottom span-right; position-try-fallbacks: flip-block, flip-inline; }
-/* Without anchor positioning the menu opens centred, like a dialog. */
+/* Without anchor positioning the menu opens centered, like a dialog. */
 @supports not (position-area: bottom) {
   .menu[popover] { inset: 0; margin: auto; height: fit-content; }
   .menu[popover]::backdrop { background: var(--overlay); }

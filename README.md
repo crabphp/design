@@ -85,18 +85,18 @@ design.md            the rules, and why
 
 ## Rules
 
-`design.md` is the source of truth. Read it before adding a colour, a size or a component.
+`design.md` is the source of truth. Read it before adding a color, a size or a component.
 
 ```sh
 npm test
 ```
 
-checks that every CSS variable in use is defined in `tokens.css`, that no component holds a raw colour, and that every class used on the demo page exists.
+checks that every CSS variable in use is defined in `tokens.css`, that no component holds a raw color, and that every class used on the demo page exists.
 
 ## Browser support
 
-Current Chrome, Firefox and Safari. The menu uses the Popover API with CSS anchor positioning; where anchor positioning is missing the menu still opens, centred.
+Current Chrome, Firefox and Safari. The menu uses the Popover API with CSS anchor positioning; where anchor positioning is missing the menu still opens, centered.
 
-## Licence
+## License
 
 MIT. JetBrains Mono is licensed under the SIL Open Font License; see `fonts/OFL.txt`.

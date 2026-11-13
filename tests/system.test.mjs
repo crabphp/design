@@ -20,14 +20,14 @@ test('every variable in use is defined in tokens.css', () => {
   }
 });
 
-test('colours live in tokens.css only', () => {
+test('colors live in tokens.css only', () => {
   for (const [name, css] of Object.entries(layers)) {
     const raw = withoutComments(css).match(/#[0-9a-f]{3,8}\b|rgba?\(/gi) ?? [];
-    assert.deepEqual(raw, [], `${name} holds a raw colour`);
+    assert.deepEqual(raw, [], `${name} holds a raw color`);
   }
 });
 
-test('every colour token has a light and a dark value', () => {
+test('every color token has a light and a dark value', () => {
   const root = withoutComments(tokens).match(/:root\s*\{([\s\S]*?)\n\}/)[1];
   for (const [, name, value] of root.matchAll(/(--[\w-]+):\s*([^;]+);/g)) {
     if (!/#|rgba?\(/.test(value)) continue;

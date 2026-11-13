@@ -8,7 +8,7 @@
      <details class="chart-data">…</details>   the same numbers as a table
    </figure> */
 
-/* Series colour: fixed order, set once per series. */
+/* Series color: fixed order, set once per series. */
 .c1 { --c: var(--chart-1); }
 .c2 { --c: var(--chart-2); }
 .c3 { --c: var(--chart-3); }
@@ -51,7 +51,7 @@
 .h4 { fill: var(--seq-4); background: var(--seq-4); }
 .h5 { fill: var(--seq-5); background: var(--seq-5); }
 
-/* Legend. The key mirrors the mark; names stay in text colour. */
+/* Legend. The key mirrors the mark; names stay in text color. */
 .legend { display: flex; flex-wrap: wrap; gap: 0 3ch; margin: 0 0 var(--half); padding: 0; list-style: none; color: var(--muted); }
 .legend li { display: flex; align-items: center; gap: 1ch; white-space: nowrap; }
 .legend strong { font-weight: 400; font-variant-numeric: tabular-nums; }

@@ -2,7 +2,7 @@
    The first block is the Crab site's own set, names unchanged, so the site and
    existing apps can adopt this file without renaming anything.
 
-   Themes. Dark is the default. Every colour is light-dark(light, dark), so the
+   Themes. Dark is the default. Every color is light-dark(light, dark), so the
    theme follows color-scheme, set by data-theme on <html> or any subtree:
      data-theme="light"  light
      data-theme="dark"   dark (the default; use it to force dark inside light)
@@ -48,8 +48,8 @@
   --code-variable: light-dark(#a85400, #ffa359);
   --code-operator: light-dark(#00789c, #08c0ef);
 
-  /* Charts. Series colours are the code hues set for filled marks on each page,
-     in a fixed order that keeps neighbours apart for colour-blind readers.
+  /* Charts. Series colors are the code hues set for filled marks on each page,
+     in a fixed order that keeps neighbors apart for color-blind readers.
      Assign in order; never cycle, never reorder. */
   --chart-1: light-dark(#a87b00, #ba8b05); /* amber */
   --chart-2: light-dark(#1f8db5, #37a1c5); /* cyan */

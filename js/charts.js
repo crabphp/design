@@ -246,7 +246,7 @@ export function columns(root, { labels = [], series = [], height = 231, format =
           if (value <= 0) return;
           const y0 = y(base), y1 = y(base + value);
           base += value;
-          // A 2px gap in the background colour separates stacked segments.
+          // A 2px gap in the background color separates stacked segments.
           const gap = si > 0 && y0 - y1 > 3 ? 2 : 0;
           svg('rect', { class: `col ${seriesClass(s, si)}`, x: Math.round(x(i) - thick / 2), y: y1, width: thick, height: Math.max(1, y0 - y1 - gap) }, chart);
         });
@@ -298,7 +298,7 @@ export function heatmap(root, { rows = [], cols = [], values = [], format = form
         tip.hidden = r < 0;
         if (r < 0) return;
         cells[r][c].classList.add('is-active');
-        // Drawn last so its outline is not covered by its neighbours.
+        // Drawn last so its outline is not covered by its neighbors.
         node.append(cells[r][c]);
         showTip(tip, plot, left + c * size + size / 2, `${rows[r]} ${cols[c]}`, [{ name: '', value: format(values[r]?.[c] ?? 0) }]);
         tip.style.top = `${Math.max(0, r * size - tip.offsetHeight - 4)}px`;

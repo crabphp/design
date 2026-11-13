@@ -10,8 +10,8 @@ It grew out of the Crab site's `design.md`. The site reads like a plain text fil
 - A dark page by default (a light theme is available), text at four strengths, amber for what you can act on.
 - Headings are uppercase bold at body size, prefixed with `#`, `##`, `###`.
 - Square corners. No shadows, gradients, icons or images. Hierarchy comes from words, weight, whitespace and thin rules.
-- Meaning is always in words. Colour helps you scan; it never carries a state on its own.
-- Semantic HTML first. Native elements (`dialog`, `details`, `popover`, `progress`) do the behaviour, so most components need no JavaScript.
+- Meaning is always in words. Color helps you scan; it never carries a state on its own.
+- Semantic HTML first. Native elements (`dialog`, `details`, `popover`, `progress`) do the behavior, so most components need no JavaScript.
 
 ## Layers
 
@@ -34,14 +34,14 @@ Dark is the default and the site's look. A light theme is chosen with `data-them
 | `data-theme="light"` | light |
 | `data-theme="auto"` | follows `prefers-color-scheme` |
 
-Every colour token is written `light-dark(light, dark)` and resolves through `color-scheme`, which the attribute sets. Components never know which theme is on. The only token that is not a colour is `--icon-invert`, which tells native icons (the date picker) whether to invert.
+Every color token is written `light-dark(light, dark)` and resolves through `color-scheme`, which the attribute sets. Components never know which theme is on. The only token that is not a color is `--icon-invert`, which tells native icons (the date picker) whether to invert.
 
 The light values are not a mechanical flip. Each one was chosen and measured on `#fbfbf9`:
 
 - Text alphas are raised (`--muted` .7, `--faint` .6) so `--faint` still reaches AA (4.9:1). `--line-strong` is .46 to keep 3:1.
 - `--amber` becomes `#8f6500`. The dark amber would be 1.6:1 on a light page; this one is 5:1 as text and as the background of a `.solid` button.
-- Status and code colours are darker versions of the same hues, each at least 4.8:1.
-- Series colours keep their hues and order, darkened to at least 3.6:1. Under protanopia and deuteranopia, neighbours stay as far apart as in the dark palette.
+- Status and code colors are darker versions of the same hues, each at least 4.8:1.
+- Series colors keep their hues and order, darkened to at least 3.6:1. Under protanopia and deuteranopia, neighbors stay as far apart as in the dark palette.
 - `--seq-*` runs from pale to dark, so "more" is still the stronger mark.
 
 ## Tokens
@@ -50,7 +50,7 @@ Values below are the dark theme's; the light value is the first argument of each
 
 The first eleven names are the site's own and keep their (dark) values, so the site and existing apps can adopt `tokens.css` without renaming anything.
 
-### Colour
+### Color
 
 ```css
 --bg: #111111;
@@ -74,10 +74,10 @@ The first eleven names are the site's own and keep their (dark) values, so the s
 
 - `--faint` is the lowest opacity allowed for text; it keeps contrast at or above WCAG AA on `--bg`.
 - `--line` is for rules you read along. `--line-strong` is for the edge of something you interact with: it reaches 3:1 against `--bg`, which an input's boundary needs.
-- The four status colours come from the site's code palette, so no new hue was introduced. They mark a word (`● Delivered`, a note's rule, an invalid input's border). Body text never takes a status colour, except an `.error` line and a `.danger` button, which also say what they are.
+- The four status colors come from the site's code palette, so no new hue was introduced. They mark a word (`● Delivered`, a note's rule, an invalid input's border). Body text never takes a status color, except an `.error` line and a `.danger` button, which also say what they are.
 - `--code-*` is the syntax palette, based on Pierre Dark, used by `.highlights` only.
 
-### Chart colour
+### Chart color
 
 ```css
 --chart-1: #ba8b05;  /* amber */    --chart-5: #3dae54;  /* green */
@@ -87,13 +87,13 @@ The first eleven names are the site's own and keep their (dark) values, so the s
 --seq-1 … --seq-5: #3c2b00, #5c4301, #7e5d03, #a27907, #c89501;
 ```
 
-The series colours are the same seven code hues, stepped down in lightness so a filled bar does not glare on a dark page. The order is fixed and was chosen by measuring: every neighbouring pair stays clearly apart under protanopia and deuteranopia (worst pair ΔE 20, target 8), and every colour has at least 3:1 contrast on `--bg`.
+The series colors are the same seven code hues, stepped down in lightness so a filled bar does not glare on a dark page. The order is fixed and was chosen by measuring: every neighboring pair stays clearly apart under protanopia and deuteranopia (worst pair ΔE 20, target 8), and every color has at least 3:1 contrast on `--bg`.
 
-- Assign colours in order: the first series is `--chart-1`, the second `--chart-2`. Never cycle, reorder or invent an eighth; fold the rest into "Other" with `--chart-other`.
-- A colour follows the thing it names. Filtering a chart must not repaint the series that remain.
-- `--chart-1` and `--chart-3` (amber and orange) are close. They are never neighbours in a line or stacked chart, but do not rely on telling them apart in a scatter plot.
+- Assign colors in order: the first series is `--chart-1`, the second `--chart-2`. Never cycle, reorder or invent an eighth; fold the rest into "Other" with `--chart-other`.
+- A color follows the thing it names. Filtering a chart must not repaint the series that remain.
+- `--chart-1` and `--chart-3` (amber and orange) are close. They are never neighbors in a line or stacked chart, but do not rely on telling them apart in a scatter plot.
 - `--seq-*` is one hue from low to high, for magnitude (a heatmap). Zero uses `--surface`.
-- Status colours are not series colours. A series that *means* good or bad may use `--ok` and `--danger`; "series 4" may not.
+- Status colors are not series colors. A series that *means* good or bad may use `--ok` and `--danger`; "series 4" may not.
 
 ### Type, space and layout
 
@@ -130,7 +130,7 @@ The page `index.html` shows each one with its markup. In short:
 
 **Navigation** `.nav-list` · `.tabs` · `.segmented` · `.button-group` · `.breadcrumb` · `.pagination` · `.pager`
 
-**Actions** `button` and `.button` are bracketed amber text. Modifiers: `.solid` (the one main action of a view), `.quiet` (secondary), `.danger` (destructive), `.block` (full width). `.button-group` joins buttons into one bordered strip: a choice of one with `aria-pressed` (the theme switch), or a few related actions. `.menu` is a native popover, anchored below its button; where anchor positioning is not supported it opens centred.
+**Actions** `button` and `.button` are bracketed amber text. Modifiers: `.solid` (the one main action of a view), `.quiet` (secondary), `.danger` (destructive), `.block` (full width). `.button-group` joins buttons into one bordered strip: a choice of one with `aria-pressed` (the theme switch), or a few related actions. `.menu` is a native popover, anchored below its button; where anchor positioning is not supported it opens centered.
 
 **Forms** `.field` with `label`, a control and optional `small` help · `.hint` · `.error` with `aria-invalid="true"` · `.check` for a checkbox, radio or switch with its label · `.input-group` and `.addon` · `.form-grid` · `.chips` and `.chip`. Checkboxes, radios and switches (`role="switch"`) are drawn as text: `[x]`, `(*)`, `[ on]`.
 
@@ -155,9 +155,9 @@ State is carried by ARIA attributes, not extra classes: `aria-current`, `aria-se
 
 - Pick the form by the job: change over time is a line, amounts per period are columns, named things compared are a table with a `.bar`, magnitude across two dimensions is a heatmap, parts of one whole are `.segments`. A single number is a `.stat`, not a chart.
 - One y axis, starting at zero. Two measures of different scale get two charts.
-- Lines are 2px. Columns are at most 24px wide and square, since nothing in this system is rounded. Stacked parts are separated by a 2px gap in the page colour, not an outline.
+- Lines are 2px. Columns are at most 24px wide and square, since nothing in this system is rounded. Stacked parts are separated by a 2px gap in the page color, not an outline.
 - Grid lines are `--line`; the baseline is `--line-strong`. Axis text is `--faint`.
-- Two or more series always have a legend. Up to four also get a label at the end of the line. Labels and legends stay in text colours; only the mark beside them is coloured.
+- Two or more series always have a legend. Up to four also get a label at the end of the line. Labels and legends stay in text colors; only the mark beside them is colored.
 - Every chart shows values on hover and on the arrow keys, and offers the same numbers as a table underneath. The tooltip adds convenience; nothing is only in the tooltip.
 - A sparkline sits beside the number it explains and is hidden from screen readers.
 
@@ -180,11 +180,11 @@ Direct, calm and specific. Short sentences. Say what happened and what to do nex
 
 ## Changing the system
 
-- Update this document before adding a colour, a size or a layout pattern.
-- A new token goes in `tokens.css` and nowhere else; components never hold a raw colour.
-- A new colour token needs both values, `light-dark(light, dark)`, each measured on its own page.
-- A new series colour or a reordered palette must be measured for colour-blind separation before it ships.
-- `npm test` checks that every variable used is defined, every colour has both themes, nothing outside `tokens.css` assumes a dark page, and every class on the demo page or added by `charts.js` exists.
+- Update this document before adding a color, a size or a layout pattern.
+- A new token goes in `tokens.css` and nowhere else; components never hold a raw color.
+- A new color token needs both values, `light-dark(light, dark)`, each measured on its own page.
+- A new series color or a reordered palette must be measured for color-blind separation before it ships.
+- `npm test` checks that every variable used is defined, every color has both themes, nothing outside `tokens.css` assumes a dark page, and every class on the demo page or added by `charts.js` exists.
 
 ## Not here yet
 

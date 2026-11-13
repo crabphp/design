@@ -1,4 +1,4 @@
-// Behaviour for the demo page only: token values, copyable markup, sample data,
+// Behavior for the demo page only: token values, copyable markup, sample data,
 // and the few lines of script the interactive examples need.
 import { columns, heatmap, line, segments, spark } from '../js/charts.js';
 
@@ -18,7 +18,7 @@ document.addEventListener('click', (event) => {
 });
 matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => showSwatchValues());
 
-// A colour token holds light-dark(…); the probe resolves it for the current theme.
+// A color token holds light-dark(…); the probe resolves it for the current theme.
 const probe = document.createElement('i');
 probe.hidden = true;
 document.body.append(probe);
